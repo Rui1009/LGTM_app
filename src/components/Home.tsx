@@ -25,7 +25,7 @@ const Home = () => {
                         }}/>
                     </Grid>
                     <Grid item xs={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <Link to={"/lanking"}>
+                        <Link to={"/lanking"} style={{textDecoration: "none"}}>
                             <Button
                                 color={"secondary"}
                                 variant={"contained"}
