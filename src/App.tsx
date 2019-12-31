@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {connect, useDispatch, useSelector} from "react-redux";
-import SendForm from "./components/sendForm"
+import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {Action} from "typescript-fsa";
-import {SelectedImageUrlSliceReducer, SetImageDataActionCreator} from "./modules/Image";
-import Timeline from "./components/Timeline";
-import {CombineState} from "./modules/RootModule";
-import {getFormValues} from "redux-form";
+import {SetImageDataActionCreator} from "./modules/Image";
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import Lanking from "./components/Lanking";
+import Home from "./components/Home";
 
 interface Props {
     loadData(): void
@@ -17,16 +16,13 @@ const App = (props: Props) => {
     useEffect(() => {
         props.loadData()
     })
-    const dispatch = useDispatch()
-    const currentValue = useSelector((state: CombineState) => getFormValues("sendForm")(state) as {url: string})
   return (
-      <div>
-        <SendForm onSubmit={() => {
-            alert("投稿しました。")
-            dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
-        }}/>
-        <Timeline />
-      </div>
+      <BrowserRouter>
+          <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/lanking" component={Lanking} />
+          </Switch>
+      </BrowserRouter>
   );
 }
 
@@ -38,3 +34,5 @@ export default connect(
     null,
     mapDispatchToProps
 )(App)
+
+
