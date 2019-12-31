@@ -16,8 +16,8 @@ const actionCreator = actionCreatorFactory();
 export interface ImageDataType {
     id: number,
     url: string,
-    unixTime: number,
-    use: number
+    unixMsec: number,
+    used: number
 }
 
 const Istate: ImageDataType[] = []
@@ -66,7 +66,7 @@ export const SetImageDataActionCreator = {
 
 function* fetchImageData() {
     try {
-        const result = (yield call(Api.get, "http://localhost:3000/data"))["data"]
+        const result = (yield call(Api.get, "https://6e016d24.ngrok.io/images"))["data"]
         console.log(result)
         yield put(ImageSliceReducer.actions.setImageData(result))
     } catch (e) {
@@ -80,7 +80,7 @@ function* fetchImageData() {
 function* postImage(action:{type:string,payload: {dataUrl: string}}) {
     try {
         console.log(action.payload)
-        const result: AxiosResponse = (yield call(Api.postMultiPart, "http://localhost:3000/data",action.payload.dataUrl))
+        const result: AxiosResponse = (yield call(Api.postMultiPart, "https://6e016d24.ngrok.io/images",action.payload.dataUrl))
         if(result.status<300){
             console.log(result)
             yield put(PostImageSliceReducer.actions.successPostImage("success"))

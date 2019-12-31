@@ -9,7 +9,7 @@ const Lanking = () => {
 
     function lankCompare(a: ImageDataType, b: ImageDataType) {
         let comparison = 0
-        if (a.use < b.use) {
+        if (a.used < b.used) {
             comparison = 1
         } else {
             comparison = -1
@@ -25,7 +25,7 @@ const Lanking = () => {
                 lankingArray.map((elem: ImageDataType) => (
                     <ul>
                         <Typography>{lankingArray.indexOf(elem) + 1}位</Typography>
-                        <Typography>使用された回数: {elem.use}</Typography>
+                        <Typography>使用された回数: {elem.used}</Typography>
                         <img src={elem.url} />
                     </ul>
                 ))

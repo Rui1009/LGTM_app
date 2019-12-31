@@ -12,7 +12,7 @@ const Timeline = () => {
     const imageData = useSelector((state: CombineState) => state.imageData)
 
     const setPostDate = (props: number) => {
-        return (new Date(props * 1000).toLocaleString())
+        return (new Date(props).toLocaleString())
     }
 
     const onSuccess = () => (
@@ -28,8 +28,8 @@ const Timeline = () => {
                                 <img width={150} height={200} src={elem.url}/>
                             </Grid>
                             <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
-                                    <Typography>使用された数: {elem.use}</Typography>
-                                    <Typography>{setPostDate(elem.unixTime)}</Typography>
+                                    <Typography>使用された数: {elem.used}</Typography>
+                                    <Typography>{setPostDate(elem.unixMsec)}</Typography>
                             </Grid>
                             <Grid item xs={6} style={{textAlign: "center"}}>
                                 <Clipboard data-clipboard-text={elem.url} onSuccess={onSuccess}>
@@ -37,7 +37,7 @@ const Timeline = () => {
                                         color={"primary"}
                                         variant={"contained"}
                                         onClick={() => {
-                                            Api.put(`http://localhost:3000/images/${elem.id}`)
+                                            Api.put(`https://6e016d24.ngrok.io/images/${elem.id}/use`)
                                         }}
                                     >使用する</Button>
                                 </Clipboard>
