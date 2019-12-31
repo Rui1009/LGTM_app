@@ -5,7 +5,8 @@ import {call, takeLatest, put} from "@redux-saga/core/effects"
 import {createSlice} from "@reduxjs/toolkit";
 
 const actionTypes = {
-    LOAD_DATA: "LOAD_DATA"
+    LOAD_DATA: "LOAD_DATA",
+    POST_DATA: "POST_DATA"
 }
 
 const actionCreator = actionCreatorFactory();
@@ -28,6 +29,9 @@ export const ImageSliceReducer = createSlice({
         }
     }
 })
+
+
+
 
 
 export const SetImageDataActionCreator = {

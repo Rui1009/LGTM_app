@@ -36,7 +36,6 @@ const SendForm = (props: InjectedFormProps) => {
     const currentValue = useSelector((state: CombineState) => getFormValues("sendForm")(state))
     console.log(currentValue)
     return (
-
         <form onSubmit={props.handleSubmit} className={classes.form}>
             <Field
                 name={"url"}

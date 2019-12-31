@@ -5,6 +5,7 @@ import SendForm from "./components/sendForm"
 import {Dispatch} from "redux";
 import {Action} from "typescript-fsa";
 import {SetImageDataActionCreator} from "./modules/Image";
+import ImageEditor from "./components/ImageEditor";
 
 interface Props {
     loadData(): void
@@ -15,7 +16,10 @@ const App = (props: Props) => {
         props.loadData()
     })
   return (
+    <div>
         <SendForm />
+        <ImageEditor/>
+    </div>
   );
 }
 

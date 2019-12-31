@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.tui-image-editor-menu{
+  background-color: #91d6e5;
+}
+
+.tui-image-editor-load-btn{
+  display: none;
+  cursor: none;
+}
