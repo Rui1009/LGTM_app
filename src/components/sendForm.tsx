@@ -44,7 +44,7 @@ const SendForm = (props: InjectedFormProps) => {
                 color={"primary"}
                 type={"submit"}
                 variant={"contained"}
-            >投稿</Button>
+            >作成</Button>
         </form>
     )
 }

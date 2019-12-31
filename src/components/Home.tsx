@@ -20,7 +20,6 @@ const Home = () => {
                 <Grid container xs={12}>
                     <Grid item container xs={8} justify={"center"} alignItems={"center"} style={{padding: 10}}>
                         <SendForm onSubmit={() => {
-                            alert("投稿しました。")
                             dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
                         }}/>
                     </Grid>
