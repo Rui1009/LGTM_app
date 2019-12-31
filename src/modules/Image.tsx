@@ -55,4 +55,5 @@ function* fetchImageData() {
     }
 }
 
+
 export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData)]

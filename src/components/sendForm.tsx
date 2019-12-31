@@ -2,9 +2,6 @@ import React from "react";
 import {TextField, InputAdornment, makeStyles} from "@material-ui/core"
 import {InjectedFormProps, WrappedFieldProps, Field, reduxForm, getFormValues} from "redux-form"
 import Button from "@material-ui/core/Button";
-import {useDispatch, useSelector} from "react-redux";
-import {CombineState} from "../modules/RootModule";
-import {SelectedImageUrlSliceReducer} from "../modules/Image";
 
 export const renderField = (
     props: WrappedFieldProps & {  label?: string; type?: string; unit: string }
@@ -34,9 +31,6 @@ const useStyles = makeStyles({
 
 const SendForm = (props: InjectedFormProps) => {
     const classes = useStyles()
-    const dispatch = useDispatch()
-    const currentValue = useSelector((state: CombineState) => getFormValues("sendForm")(state) as {url: string})
-    console.log(currentValue)
     return (
 
         <form onSubmit={props.handleSubmit} className={classes.form}>
@@ -50,9 +44,6 @@ const SendForm = (props: InjectedFormProps) => {
                 color={"primary"}
                 type={"submit"}
                 variant={"contained"}
-                onClick={() => {
-                    dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
-                }}
             >投稿</Button>
         </form>
     )
