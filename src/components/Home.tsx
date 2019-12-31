@@ -9,6 +9,7 @@ import {Card} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import ImageEditor from "./ImageEditorComponent";
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const Home = () => {
                     </Grid>
                 </Grid>
             </Card>
+            <ImageEditor/>
             <Timeline />
         </div>
     )

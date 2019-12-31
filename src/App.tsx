@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {Action} from "typescript-fsa";
 import {SetImageDataActionCreator} from "./modules/Image";
+
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Lanking from "./components/Lanking";
 import Home from "./components/Home";
@@ -23,6 +24,8 @@ const App = (props: Props) => {
               <Route exact path="/lanking" component={Lanking} />
           </Switch>
       </BrowserRouter>
+
+
   );
 }
 
