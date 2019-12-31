@@ -3,10 +3,12 @@ import actionCreatorFactory from "typescript-fsa";
 import {Api} from "../Api/Api";
 import {call, takeLatest, put} from "@redux-saga/core/effects"
 import {createSlice} from "@reduxjs/toolkit";
+import {AxiosResponse} from "axios";
+
+
 
 const actionTypes = {
-    LOAD_DATA: "LOAD_DATA",
-    POST_DATA: "POST_DATA"
+    LOAD_DATA: "LOAD_DATA"
 }
 
 const actionCreator = actionCreatorFactory();
@@ -42,7 +44,21 @@ export const SelectedImageUrlSliceReducer = createSlice({
 
 
 
-
+export const PostImageSliceReducer = createSlice({
+    name: "postImage",
+    initialState: "",
+    reducers: {
+        postImage(state: string, action: {payload: {dataUrl: string}}) {
+            return state
+        },
+        successPostImage(state: string, action: {payload: string}) {
+            return state
+        },
+        failedPostImage(state: string, action: {payload: string}) {
+            return state
+        }
+    }
+})
 
 export const SetImageDataActionCreator = {
     loadImageData: actionCreator<void>(actionTypes.LOAD_DATA)
@@ -59,4 +75,23 @@ function* fetchImageData() {
     }
 }
 
-export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData)]
+
+function* postImage(action:{type:string,payload: {dataUrl: string}}) {
+    try {
+        console.log(action.payload)
+        const result: AxiosResponse = (yield call(Api.postMultiPart, "http://localhost:3000/data",action.payload.dataUrl))
+        if(result.status<300){
+            console.log(result)
+            yield put(PostImageSliceReducer.actions.successPostImage("success"))
+        }else{
+            console.log("error")
+            console.log(result)
+            yield put(PostImageSliceReducer.actions.failedPostImage("failed"))
+        }
+    } catch (e) {
+        console.log("error")
+        yield put(PostImageSliceReducer.actions.failedPostImage("failed"))
+    }
+}
+
+export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData),takeLatest(PostImageSliceReducer.actions.postImage, postImage)]
