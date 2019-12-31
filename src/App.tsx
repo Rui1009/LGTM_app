@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {connect} from "react-redux";
+import SendForm from "./components/sendForm"
+import {Dispatch} from "redux";
+import {Action} from "typescript-fsa";
+import {SetImageDataActionCreator} from "./modules/Image";
 
-const App: React.FC = () => {
+interface Props {
+    loadData(): void
+}
+
+const App = (props: Props) => {
+    useEffect(() => {
+        props.loadData()
+    })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <SendForm />
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch<Action<any>>) => ({
+    loadData: () => {dispatch(SetImageDataActionCreator.loadImageData())}
+})
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(App)
