@@ -30,6 +30,16 @@ export const ImageSliceReducer = createSlice({
     }
 })
 
+export const SelectedImageUrlSliceReducer = createSlice({
+    name: "selectedUrl",
+    initialState: "",
+    reducers: {
+        setImageUrl(state: string, action: {payload: string}) {
+            return action.payload
+        }
+    }
+})
+
 
 
 

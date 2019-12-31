@@ -20,6 +20,7 @@ const App = (props: Props) => {
         <SendForm />
         <ImageEditor/>
     </div>
+
   );
 }
 
