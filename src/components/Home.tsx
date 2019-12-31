@@ -18,12 +18,12 @@ const Home = () => {
         <div>
             <Card>
                 <Grid container xs={12}>
-                    <Grid item container xs={8} justify={"center"} alignItems={"center"} style={{padding: 10}}>
+                    <Grid item container xs={8} justify={"center"} alignItems={"center"}>
                         <SendForm onSubmit={() => {
                             dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
                         }}/>
                     </Grid>
-                    <Grid item xs={4} style={{padding: 10}}>
+                    <Grid item xs={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                         <Link to={"/lanking"}>
                             <Button
                                 color={"secondary"}
