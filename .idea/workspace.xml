@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b1e1f3e-9524-4acb-b715-683ec39a1ca1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/modules/router/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/router/selectors.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Api/Api.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Api/Api.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageEditorComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageEditorComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Lanking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Lanking.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UrlForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UrlForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/Image.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Image.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/RootModule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/RootModule.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +95,7 @@
       <option name="presentableId" value="Default" />
       <updated>1577771000097</updated>
       <workItem from="1577771001872" duration="19121000" />
-      <workItem from="1577889731712" duration="2104000" />
+      <workItem from="1577889731712" duration="6908000" />
     </task>
     <servers />
   </component>
@@ -129,6 +128,18 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/ImageEditorComponent.tsx</url>
+          <line>111</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>

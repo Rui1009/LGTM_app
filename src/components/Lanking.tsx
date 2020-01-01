@@ -1,7 +1,7 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType} from "../modules/Image";
+import {ImageDataType, SetImageDataActionCreator} from "../modules/Image";
 import {Card, Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Api} from "../Api/Api";
@@ -9,7 +9,10 @@ import Clipboard from "react-clipboard.js";
 
 const Lanking = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
-
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(SetImageDataActionCreator.loadImageData())
+  })
   function lankCompare(a: ImageDataType, b: ImageDataType) {
     let comparison = 0
     if (a.used < b.used) {
@@ -25,7 +28,6 @@ const Lanking = () => {
   lankingArray.sort(lankCompare)
   return (
     <div style={{textAlign: "center"}}>
-
       {
         lankingArray.map((elem: ImageDataType) => (
           <Card style={{height:400}}>
@@ -44,7 +46,7 @@ const Lanking = () => {
                     color={"primary"}
                     variant={"contained"}
                     onClick={() => {
-                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`)
+                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{ dispatch(SetImageDataActionCreator.loadImageData())})
                     }}
                   >使用する</Button>
                 </Clipboard>

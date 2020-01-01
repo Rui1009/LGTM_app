@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react';
+
+import 'tui-image-editor/dist/tui-image-editor.css';
+import 'tui-color-picker/dist/tui-color-picker.css';
 import './App.css';
+
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {Action} from "typescript-fsa";

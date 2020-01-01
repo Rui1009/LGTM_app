@@ -46,3 +46,7 @@
   display: none;
   cursor: none;
 }
+
+.tui-image-editor-container .tui-image-editor-main {
+  top:0px ;
+}

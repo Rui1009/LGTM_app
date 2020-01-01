@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 export class Api {
     static async get(url: string) {
@@ -8,13 +8,13 @@ export class Api {
         return axios.put(url)
     }
 
-    static async postMultiPart(url:string,dataUri:string){
+    static async postMultiPart(url:string,dataUri:string): Promise<AxiosResponse<any>> {
         return fetch(dataUri)
           .then(res => res.blob())
           .then(blob => {
               const fd = new FormData()
               fd.append('image', blob, 'filename.png')
-              axios(
+              return axios(
                 {
                     method: 'post',
                     url: url,

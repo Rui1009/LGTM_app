@@ -4,9 +4,6 @@ import {reduxForm, getFormValues} from "redux-form"
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import 'tui-image-editor/dist/tui-image-editor.css';
-import 'tui-color-picker/dist/tui-color-picker.css';
-
 import iconA from 'tui-image-editor/dist/svg/icon-a.svg'
 import iconB from 'tui-image-editor/dist/svg/icon-b.svg'
 import iconC from 'tui-image-editor/dist/svg/icon-c.svg'
@@ -16,10 +13,8 @@ import ImageEditor from "./ImageEditor";
 import {PostImageSliceReducer, SelectedImageUrlSliceReducer} from "../modules/Image";
 
 const theme = {
-  'common.bi.image': 'https://uicdn.toast.com/toastui/img/tui-image-editor-bi.png',
   'common.bisize.width': '251px',
   'common.bisize.height': '21px',
-  'common.backgroundImage': './img/bg.png',
   'common.backgroundColor': '#fff',
   'common.border': '1px solid #c1c1c1',
 
@@ -27,7 +22,7 @@ const theme = {
   'header.backgroundImage': 'none',
   'header.backgroundColor': 'grey',
   'header.border': '0px',
-
+  'header.display':'none',
   // load button
   'loadButton.backgroundColor': 'transparent',
   'loadButton.border': '0px solid #ddd',
@@ -94,7 +89,6 @@ const theme = {
   'range.value.backgroundColor': '#f5f5f5',
   'range.title.color': '#000',
   'range.title.fontWeight': 'lighter',
-
   // colorpicker style
   'colorpicker.button.border': '0px',
   'colorpicker.title.color': '#000'
@@ -113,12 +107,24 @@ const ImageEditorComponent = (props: {}) => {
     >
       <div style={{
           position: 'absolute',
+          backgroundColor:"honeydew",
           width: "auto",
           top: "50%",
           left: "57%",
           transform: "translateY(-50%) translateX(-50%)",
           border: '2px solid #000',
           padding: 10}}>
+        <div style={{padding:8,backgroundImage:"none",backgroundColor: "grey",border: "0px"}}>
+          <Button
+            style={{borderRadius:20,backgroundColor: "#fdba3b",fontWeight:"bold",border: "1px solid #fdba3b",color: "#fff",fontSize: 12}}
+            onClick={() =>{
+              editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png")}));
+              dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(""))
+            }}
+          >
+            投稿する
+          </Button>
+        </div>
         {!!currentValue ?
           //@ts-ignore
           <ImageEditor
@@ -132,23 +138,21 @@ const ImageEditorComponent = (props: {}) => {
               menu: ['text'],
               initMenu: 'text',
               uiSize: {
-                width: '1000px',
-                height: '700px'
+                width: '600px',
+                height: '500px'
               },
               theme: theme,
               menuBarPosition: 'bottom'
             }}
-            cssMaxHeight={500}
-            cssMaxWidth={700}
+            cssMaxHeight={300}
+            cssMaxWidth={400}
             selectionStyle={{
-              cornerSize: 20,
+              cornerSize: 10,
               rotatingPointOffset: 70
             }}
             usageStatistics={false}
           /> : null}
-        <button
-          onClick={() => editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png")}))}>test
-        </button>
+
       </div>
     </Modal>
   )

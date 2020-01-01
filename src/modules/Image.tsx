@@ -27,7 +27,7 @@ export const ImageSliceReducer = createSlice({
     initialState: Istate,
     reducers: {
         setImageData(state: ImageDataType[], action: {payload: ImageDataType[]}) {
-            return state.concat(action.payload)
+            return action.payload
         }
     }
 })
@@ -80,20 +80,26 @@ function* fetchImageData() {
 function* postImage(action:{type:string,payload: {dataUrl: string}}) {
     try {
         console.log(action.payload)
-        const result: AxiosResponse = (yield call(Api.postMultiPart, "https://lgtm-app-server.herokuapp.com/images",action.payload.dataUrl))
+        const result:AxiosResponse<any> = (yield call(Api.postMultiPart, "https://lgtm-app-server.herokuapp.com/images",action.payload.dataUrl))
+        console.log(result)
 
         if(result.status<300){
             console.log(result)
+            alert("投稿しました")
             yield put(PostImageSliceReducer.actions.successPostImage("success"))
+            yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(""))
+            yield put(SetImageDataActionCreator.loadImageData())
         }else{
             console.log("error")
-            console.log(result)
+            console.log(result.status)
+            alert("サーバーでエラーが発生しました。しばらく経ってから再度お試しください")
             yield put(PostImageSliceReducer.actions.failedPostImage("failed"))
         }
 
 
     } catch (e) {
         console.log("error")
+        alert("原因不明のエラーが発生しました。しばらく経ってから再度お試しください。\n"+e.message)
         yield put(PostImageSliceReducer.actions.failedPostImage("failed"))
     }
 }

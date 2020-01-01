@@ -1,7 +1,7 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType} from "../modules/Image";
+import {ImageDataType, SetImageDataActionCreator} from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 
 const Timeline = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
-
+  const dispatch = useDispatch()
   const setPostDate = (props: number) => {
     return (new Date(props).toLocaleString())
   }
@@ -47,7 +47,7 @@ const Timeline = () => {
                         color={"primary"}
                         variant={"contained"}
                         onClick={() => {
-                          Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`)
+                          Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{dispatch(SetImageDataActionCreator.loadImageData())})
                         }}
                       >使用する</Button>
                     </Clipboard>
