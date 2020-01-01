@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import { makeStyles} from "@material-ui/core"
+import {makeStyles, Modal} from "@material-ui/core"
 import {reduxForm, getFormValues} from "redux-form"
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,128 +12,146 @@ import iconB from 'tui-image-editor/dist/svg/icon-b.svg'
 import iconC from 'tui-image-editor/dist/svg/icon-c.svg'
 import iconD from 'tui-image-editor/dist/svg/icon-d.svg'
 import ImageEditor from "./ImageEditor";
-import {PostImageSliceReducer} from "../modules/Image";
-const theme ={
-    'common.bi.image': 'https://uicdn.toast.com/toastui/img/tui-image-editor-bi.png',
-    'common.bisize.width': '251px',
-    'common.bisize.height': '21px',
-    'common.backgroundImage': './img/bg.png',
-    'common.backgroundColor': '#fff',
-    'common.border': '1px solid #c1c1c1',
 
-    // header
-    'header.backgroundImage': 'none',
-    'header.backgroundColor': 'grey',
-    'header.border': '0px',
+import {PostImageSliceReducer, SelectedImageUrlSliceReducer} from "../modules/Image";
 
-    // load button
-    'loadButton.backgroundColor': 'transparent',
-    'loadButton.border': '0px solid #ddd',
-    'loadButton.color': 'transparent',
-    'loadButton.fontFamily': '\'Noto Sans\', sans-serif',
-    'loadButton.fontSize': '12px',
+const theme = {
+  'common.bi.image': 'https://uicdn.toast.com/toastui/img/tui-image-editor-bi.png',
+  'common.bisize.width': '251px',
+  'common.bisize.height': '21px',
+  'common.backgroundImage': './img/bg.png',
+  'common.backgroundColor': '#fff',
+  'common.border': '1px solid #c1c1c1',
 
-    // download button
-    'downloadButton.backgroundColor': '#fdba3b',
-    'downloadButton.border': '1px solid #fdba3b',
-    'downloadButton.color': '#fff',
-    'downloadButton.fontFamily': '\'Noto Sans\', sans-serif',
-    'downloadButton.fontSize': '12px',
+  // header
+  'header.backgroundImage': 'none',
+  'header.backgroundColor': 'grey',
+  'header.border': '0px',
 
-    // main icons
-    'menu.normalIcon.path': iconD,
-    'menu.normalIcon.name': 'icon-d',
-    'menu.activeIcon.path': iconB,
-    'menu.activeIcon.name': 'icon-b',
-    'menu.disabledIcon.path': iconA,
-    'menu.disabledIcon.name': 'icon-a',
-    'menu.hoverIcon.path': iconC,
-    'menu.hoverIcon.name': 'icon-c',
-    'menu.iconSize.width': '24px',
-    'menu.iconSize.height': '24px',
+  // load button
+  'loadButton.backgroundColor': 'transparent',
+  'loadButton.border': '0px solid #ddd',
+  'loadButton.color': 'transparent',
+  'loadButton.fontFamily': '\'Noto Sans\', sans-serif',
+  'loadButton.fontSize': '12px',
 
-    'menu.backgroundColor':'grey',
+  // download button
+  'downloadButton.backgroundColor': '#fdba3b',
+  'downloadButton.border': '1px solid #fdba3b',
+  'downloadButton.color': '#fff',
+  'downloadButton.fontFamily': '\'Noto Sans\', sans-serif',
+  'downloadButton.fontSize': '12px',
 
-    // submenu primary color
-    'submenu.backgroundColor': 'transparent',
-    'submenu.partition.color': '#e5e5e5',
+  // main icons
+  'menu.normalIcon.path': iconD,
+  'menu.normalIcon.name': 'icon-d',
+  'menu.activeIcon.path': iconB,
+  'menu.activeIcon.name': 'icon-b',
+  'menu.disabledIcon.path': iconA,
+  'menu.disabledIcon.name': 'icon-a',
+  'menu.hoverIcon.path': iconC,
+  'menu.hoverIcon.name': 'icon-c',
+  'menu.iconSize.width': '24px',
+  'menu.iconSize.height': '24px',
 
-    // submenu icons
-    'submenu.normalIcon.path': iconD,
-    'submenu.normalIcon.name': 'icon-d',
-    'submenu.activeIcon.path': iconB,
-    'submenu.activeIcon.name': 'icon-b',
-    'submenu.iconSize.width': '32px',
-    'submenu.iconSize.height': '32px',
+  'menu.backgroundColor': 'grey',
 
-    // submenu labels
-    'submenu.normalLabel.color': '#858585',
-    'submenu.normalLabel.fontWeight': 'normal',
-    'submenu.activeLabel.color': '#000',
-    'submenu.activeLabel.fontWeight': 'normal',
+  // submenu primary color
+  'submenu.backgroundColor': 'transparent',
+  'submenu.partition.color': '#e5e5e5',
 
-    // checkbox style
-    'checkbox.border': '1px solid #ccc',
-    'checkbox.backgroundColor': '#fff',
+  // submenu icons
+  'submenu.normalIcon.path': iconD,
+  'submenu.normalIcon.name': 'icon-d',
+  'submenu.activeIcon.path': iconB,
+  'submenu.activeIcon.name': 'icon-b',
+  'submenu.iconSize.width': '32px',
+  'submenu.iconSize.height': '32px',
 
-    // rango style
-    'range.pointer.color': '#333',
-    'range.bar.color': '#ccc',
-    'range.subbar.color': '#606060',
+  // submenu labels
+  'submenu.normalLabel.color': '#858585',
+  'submenu.normalLabel.fontWeight': 'normal',
+  'submenu.activeLabel.color': '#000',
+  'submenu.activeLabel.fontWeight': 'normal',
 
-    'range.disabledPointer.color': '#d3d3d3',
-    'range.disabledBar.color': 'rgba(85,85,85,0.06)',
-    'range.disabledSubbar.color': 'rgba(51,51,51,0.2)',
+  // checkbox style
+  'checkbox.border': '1px solid #ccc',
+  'checkbox.backgroundColor': '#fff',
 
-    'range.value.color': '#000',
-    'range.value.fontWeight': 'normal',
-    'range.value.fontSize': '11px',
-    'range.value.border': '0',
-    'range.value.backgroundColor': '#f5f5f5',
-    'range.title.color': '#000',
-    'range.title.fontWeight': 'lighter',
+  // rango style
+  'range.pointer.color': '#333',
+  'range.bar.color': '#ccc',
+  'range.subbar.color': '#606060',
 
-    // colorpicker style
-    'colorpicker.button.border': '0px',
-    'colorpicker.title.color': '#000'
+  'range.disabledPointer.color': '#d3d3d3',
+  'range.disabledBar.color': 'rgba(85,85,85,0.06)',
+  'range.disabledSubbar.color': 'rgba(51,51,51,0.2)',
+
+  'range.value.color': '#000',
+  'range.value.fontWeight': 'normal',
+  'range.value.fontSize': '11px',
+  'range.value.border': '0',
+  'range.value.backgroundColor': '#f5f5f5',
+  'range.title.color': '#000',
+  'range.title.fontWeight': 'lighter',
+
+  // colorpicker style
+  'colorpicker.button.border': '0px',
+  'colorpicker.title.color': '#000'
 }
 
 
 const ImageEditorComponent = (props: {}) => {
-    const currentValue: string = useSelector((state: CombineState) => state.selectedImageUrl)
-    console.log(currentValue)
-    const dispatch = useDispatch()
-    const editorRef= useRef<ImageEditor>(null);
-    return (
-      <div>
-      <ImageEditor
-        ref={editorRef}
-        // @ts-ignore
-        includeUI={{
-            loadImage: {
+  const currentValue: string = useSelector((state: CombineState) => state.selectedImageUrl)
+  console.log(currentValue)
+  const dispatch = useDispatch()
+  const editorRef = useRef<ImageEditor>(null);
+  return (
+    <Modal
+      open={!!currentValue}
+      onClose={() => dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(""))}
+    >
+      <div style={{
+          position: 'absolute',
+          width: "auto",
+          top: "50%",
+          left: "57%",
+          transform: "translateY(-50%) translateX(-50%)",
+          border: '2px solid #000',
+          padding: 10}}>
+        {!!currentValue ?
+          //@ts-ignore
+          <ImageEditor
+            ref={editorRef}
+            // @ts-ignore
+            includeUI={{
+              loadImage: {
                 path: currentValue,
                 name: 'SampleImage'
-            },
-            menu: ['text'],
-            initMenu: 'text',
-            uiSize: {
+              },
+              menu: ['text'],
+              initMenu: 'text',
+              uiSize: {
                 width: '1000px',
                 height: '700px'
-            },
-            theme:theme,
-            menuBarPosition: 'bottom'
-        }}
-        cssMaxHeight={500}
-        cssMaxWidth={700}
-        selectionStyle={{
-            cornerSize: 20,
-            rotatingPointOffset: 70
-        }}
-        usageStatistics={false}
-      />
-          <button onClick={ ()=>editorRef && editorRef.current &&dispatch(PostImageSliceReducer.actions.postImage({dataUrl:editorRef.current.getInstance().toDataURL("png")})) }>test</button>
+              },
+              theme: theme,
+              menuBarPosition: 'bottom'
+            }}
+            cssMaxHeight={500}
+            cssMaxWidth={700}
+            selectionStyle={{
+              cornerSize: 20,
+              rotatingPointOffset: 70
+            }}
+            usageStatistics={false}
+          /> : null}
+        <button
+          onClick={() => editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png")}))}>test
+        </button>
       </div>
-    )
+    </Modal>
+  )
 }
 
 export default ImageEditorComponent

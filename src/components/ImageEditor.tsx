@@ -3,23 +3,8 @@ import TuiImageEditor from 'tui-image-editor';
 
 export default class ImageEditor extends React.Component {
   rootEl = React.createRef();
-  componentDidMount() {
-    // @ts-ignore
-    this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
-      ...this.props
-    });
-    this.bindEventHandlers(this.props,undefined);
-  }
 
-  // @ts-ignore
-  shouldComponentUpdate(nextProps) {
-    console.log('nextProps')
-    console.log(this.props,nextProps)
-    // @ts-ignore
-    this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
-      ...nextProps
-    });
-
+  addText =()=>{
     setTimeout(() =>{
         try {
           // @ts-ignore
@@ -60,9 +45,26 @@ export default class ImageEditor extends React.Component {
       }
 
       ,200)
+  }
 
+  componentDidMount() {
+    // @ts-ignore
+    this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
+      ...this.props
+    });
+    this.bindEventHandlers(this.props,undefined);
+    this.addText()
+  }
 
-    this.forceUpdate()
+  // @ts-ignore
+  shouldComponentUpdate(nextProps) {
+    console.log('nextProps')
+    console.log(this.props,nextProps)
+    // @ts-ignore
+    this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
+      ...nextProps
+    });
+    this.addText()
     this.bindEventHandlers(this.props, nextProps);
 
 

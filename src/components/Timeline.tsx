@@ -2,11 +2,12 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
 import {ImageDataType} from "../modules/Image";
-import {Grid} from "@material-ui/core";
+import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Api} from "../Api/Api";
 import Clipboard from 'react-clipboard.js';
+import {Link} from "react-router-dom";
 
 const Timeline = () => {
     const imageData = useSelector((state: CombineState) => state.imageData)
@@ -20,34 +21,44 @@ const Timeline = () => {
     )
     return (
         <div>
+            <Grid item xs={4} style={{padding:10}}>
+                <Link to={"/lanking"} style={{textDecoration: "none"}}>
+                    <Button
+                      color={"secondary"}
+                      variant={"contained"}
+                    >人気ランキングをチェック！！</Button>
+                </Link>
+            </Grid>
+            <Grid container xs={12}>
             {
                 imageData.map((elem: ImageDataType) => (
-                    <ul>
-                        <Grid container xs={12}>
-                            <Grid item xs={12} style={{textAlign: "center"}}>
-                                <img width={400}  src={elem.url}/>
-                            </Grid>
+                        <Card style={{margin:10,width:400}}>
+                        <Grid item container>
                             <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
-                                    <Typography>使用された数: {elem.used}</Typography>
-                                    <Typography>{setPostDate(elem.unixMsec)}</Typography>
+                                <Typography>使用された数: {elem.used}</Typography>
+                                <Typography>{setPostDate(elem.unixMsec)}</Typography>
                             </Grid>
                             <Grid item xs={6} style={{textAlign: "center"}}>
                                 <Clipboard data-clipboard-text={elem.url} onSuccess={onSuccess}>
                                     <Button
-                                        color={"primary"}
-                                        variant={"contained"}
-                                        onClick={() => {
-                                            Api.put(`https://6e016d24.ngrok.io/images/${elem.id}/use`)
-                                        }}
+                                      color={"primary"}
+                                      variant={"contained"}
+                                      onClick={() => {
+                                          Api.put(`https://6e016d24.ngrok.io/images/${elem.id}/use`)
+                                      }}
                                     >使用する</Button>
                                 </Clipboard>
                             </Grid>
-                        </Grid>
+                            <Grid item xs={12} style={{textAlign: "center"}}>
+                                <img height={300} width={300} style={{objectFit:"contain"}}  src={elem.url}/>
+                            </Grid>
 
-                    </ul>
-    )
-)
+                        </Grid>
+                        </Card>
+                )
+                )
             }
+            </Grid>
         </div>
     )
 }

@@ -18,18 +18,10 @@ const UrlForm = () => {
     return (
             <Card>
                 <Grid container xs={12}>
-                    <Grid item container xs={8} justify={"center"} alignItems={"center"}>
+                    <Grid style={{padding:10}} item justify={"center"} alignItems={"center"}>
                         <SendForm onSubmit={() => {
                             dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
                         }}/>
-                    </Grid>
-                    <Grid item xs={4} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                        <Link to={"/lanking"} style={{textDecoration: "none"}}>
-                            <Button
-                                color={"secondary"}
-                                variant={"contained"}
-                            >人気ランキングをチェック！！</Button>
-                        </Link>
                     </Grid>
                 </Grid>
             </Card>
