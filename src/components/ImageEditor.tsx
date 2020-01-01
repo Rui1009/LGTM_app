@@ -11,21 +11,6 @@ export default class ImageEditor extends React.Component {
     this.bindEventHandlers(this.props,undefined);
   }
 
-  componentDidUpdate(): void {
-    // // @ts-ignore
-    // this.imageEditorInst.addText('init text', {
-    //   styles: {
-    //     fill: '#f5f5f5',
-    //     fontSize: 50,
-    //     fontWeight: 'bold'
-    //   },
-    //   position: {
-    //     x: 50,
-    //     y: 60
-    //   }
-    // })
-  }
-
   // @ts-ignore
   shouldComponentUpdate(nextProps) {
     console.log('nextProps')
@@ -35,22 +20,36 @@ export default class ImageEditor extends React.Component {
       ...nextProps
     });
 
-    console.log("test")
-    console.log(nextProps.includeUI.loadImage.path)
-
-
     setTimeout(() =>{
         try {
+          // @ts-ignore
+          const canvasSize = this.imageEditorInst.getCanvasSize();
+          console.log(canvasSize.width);
+          console.log(canvasSize.height);
+          let fontSize = 0
+          let x = 0
+          let y = 0
+
+          if(canvasSize.width<canvasSize.height){
+            fontSize= canvasSize.width/4
+            x= 5
+            y= canvasSize.height - fontSize - 10
+          }else{
+            fontSize= canvasSize.height/4
+            x= canvasSize.width/4
+            y= canvasSize.height - fontSize - 10
+          }
+
           // @ts-ignore
           this.imageEditorInst.addText('LGTM', {
             styles: {
               fill: '#ff0007',
-              fontSize: 150,
+              fontSize: fontSize,
               fontWeight: 'bold',
             },
             position: {
-              x: 200,
-              y: 150
+              x: x,
+              y: y
             }
             // @ts-ignore
           }).catch((e)=> console.log(e))

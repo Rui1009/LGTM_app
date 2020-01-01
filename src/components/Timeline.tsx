@@ -25,7 +25,7 @@ const Timeline = () => {
                     <ul>
                         <Grid container xs={12}>
                             <Grid item xs={12} style={{textAlign: "center"}}>
-                                <img width={150} height={200} src={elem.url}/>
+                                <img width={400}  src={elem.url}/>
                             </Grid>
                             <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
                                     <Typography>使用された数: {elem.used}</Typography>
