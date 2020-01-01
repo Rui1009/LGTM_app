@@ -44,7 +44,7 @@ const Lanking = () => {
                     color={"primary"}
                     variant={"contained"}
                     onClick={() => {
-                      Api.put(`https://6e016d24.ngrok.io/images/${elem.id}/use`)
+                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`)
                     }}
                   >使用する</Button>
                 </Clipboard>

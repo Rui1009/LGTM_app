@@ -66,7 +66,7 @@ export const SetImageDataActionCreator = {
 
 function* fetchImageData() {
     try {
-        const result = (yield call(Api.get, "https://6e016d24.ngrok.io/images"))["data"]
+        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"]
         console.log(result)
         yield put(ImageSliceReducer.actions.setImageData(result))
     } catch (e) {
@@ -80,7 +80,8 @@ function* fetchImageData() {
 function* postImage(action:{type:string,payload: {dataUrl: string}}) {
     try {
         console.log(action.payload)
-        const result: AxiosResponse = (yield call(Api.postMultiPart, "https://6e016d24.ngrok.io/images",action.payload.dataUrl))
+        const result: AxiosResponse = (yield call(Api.postMultiPart, "https://lgtm-app-server.herokuapp.com/images",action.payload.dataUrl))
+
         if(result.status<300){
             console.log(result)
             yield put(PostImageSliceReducer.actions.successPostImage("success"))
@@ -89,6 +90,8 @@ function* postImage(action:{type:string,payload: {dataUrl: string}}) {
             console.log(result)
             yield put(PostImageSliceReducer.actions.failedPostImage("failed"))
         }
+
+
     } catch (e) {
         console.log("error")
         yield put(PostImageSliceReducer.actions.failedPostImage("failed"))

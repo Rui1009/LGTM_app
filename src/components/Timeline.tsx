@@ -10,57 +10,60 @@ import Clipboard from 'react-clipboard.js';
 import {Link} from "react-router-dom";
 
 const Timeline = () => {
-    const imageData = useSelector((state: CombineState) => state.imageData)
+  const imageData = useSelector((state: CombineState) => state.imageData)
 
-    const setPostDate = (props: number) => {
-        return (new Date(props).toLocaleString())
-    }
+  const setPostDate = (props: number) => {
+    return (new Date(props).toLocaleString())
+  }
 
-    const onSuccess = () => (
-        alert("successfully copied")
-    )
-    return (
-        <div>
-            <Grid item xs={4} style={{padding:10}}>
-                <Link to={"/lanking"} style={{textDecoration: "none"}}>
-                    <Button
-                      color={"secondary"}
-                      variant={"contained"}
-                    >人気ランキングをチェック！！</Button>
-                </Link>
-            </Grid>
-            <Grid container xs={12}>
-            {
-                imageData.map((elem: ImageDataType) => (
-                        <Card style={{margin:10,width:400}}>
-                        <Grid item container>
-                            <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
-                                <Typography>使用された数: {elem.used}</Typography>
-                                <Typography>{setPostDate(elem.unixMsec)}</Typography>
-                            </Grid>
-                            <Grid item xs={6} style={{textAlign: "center"}}>
-                                <Clipboard data-clipboard-text={elem.url} onSuccess={onSuccess}>
-                                    <Button
-                                      color={"primary"}
-                                      variant={"contained"}
-                                      onClick={() => {
-                                          Api.put(`https://6e016d24.ngrok.io/images/${elem.id}/use`)
-                                      }}
-                                    >使用する</Button>
-                                </Clipboard>
-                            </Grid>
-                            <Grid item xs={12} style={{textAlign: "center"}}>
-                                <img height={300} width={300} style={{objectFit:"contain"}}  src={elem.url}/>
-                            </Grid>
+  const onSuccess = () => (
+    alert("successfully copied")
+  )
+  return (
+    <div>
+      <Grid alignItems={"center"} justify={"space-between"} container style={{padding: 10}}>
+          <Typography variant="h4">
+              Timeline
+          </Typography>
+        <Link to={"/lanking"} style={{textDecoration: "none"}}>
+          <Button
+            color={"secondary"}
+            variant={"contained"}
+          >人気ランキングをチェック！！</Button>
+        </Link>
+      </Grid>
+      <Grid container xs={12}>
+        {
+          imageData.map((elem: ImageDataType) => (
+              <Card style={{margin: 10, width: 400}}>
+                <Grid item container>
+                  <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
+                    <Typography>使用された数: {elem.used}</Typography>
+                    <Typography>{setPostDate(elem.unixMsec)}</Typography>
+                  </Grid>
+                  <Grid item xs={6} style={{textAlign: "center"}}>
+                    <Clipboard data-clipboard-text={elem.url} onSuccess={onSuccess}>
+                      <Button
+                        color={"primary"}
+                        variant={"contained"}
+                        onClick={() => {
+                          Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`)
+                        }}
+                      >使用する</Button>
+                    </Clipboard>
+                  </Grid>
+                  <Grid item xs={12} style={{textAlign: "center"}}>
+                    <img height={300} width={300} style={{objectFit: "contain"}} src={elem.url}/>
+                  </Grid>
 
-                        </Grid>
-                        </Card>
-                )
-                )
-            }
-            </Grid>
-        </div>
-    )
+                </Grid>
+              </Card>
+            )
+          )
+        }
+      </Grid>
+    </div>
+  )
 }
 
 export default Timeline
