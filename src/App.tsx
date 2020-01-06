@@ -10,7 +10,7 @@ import {Action} from "typescript-fsa";
 import {SetImageDataActionCreator} from "./modules/Image";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Lanking from "./components/Lanking";
+import Lanking from "./components/Ranking";
 import Home from "./components/Home";
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
 

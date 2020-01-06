@@ -7,13 +7,13 @@ import Button from "@material-ui/core/Button";
 import {Api} from "../Api/Api";
 import Clipboard from "react-clipboard.js";
 
-const Lanking = () => {
+const Ranking = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(SetImageDataActionCreator.loadImageData())
   })
-  function lankCompare(a: ImageDataType, b: ImageDataType) {
+  function RankCompare(a: ImageDataType, b: ImageDataType) {
     let comparison = 0
     if (a.used < b.used) {
       comparison = 1
@@ -23,23 +23,23 @@ const Lanking = () => {
     return comparison
   }
 
-  const lankingArray = imageData.slice()
+  const RankingArray = imageData.slice()
 
-  lankingArray.sort(lankCompare)
+  RankingArray.sort(RankCompare)
   return (
     <div style={{textAlign: "center"}}>
       {
-        lankingArray.map((elem: ImageDataType) => (
+        RankingArray.map((elem: ImageDataType) => (
           <Card style={{height:400}}>
             <Grid container direction={"column"}>
               <Grid item>
-                <Typography>{lankingArray.indexOf(elem) + 1}位</Typography>
+                <Typography>{RankingArray.indexOf(elem) + 1}位</Typography>
               </Grid>
               <Grid item>
                 <Typography>使用された回数: {elem.used}</Typography>
               </Grid>
               <Grid item>
-                <Clipboard data-clipboard-text={elem.url} onSuccess={() => {
+                <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={() => {
                   alert("successfully copied")
                 }}>
                   <Button
@@ -62,4 +62,4 @@ const Lanking = () => {
   )
 }
 
-export default Lanking
+export default Ranking

@@ -42,7 +42,7 @@ const Timeline = () => {
                     <Typography>{setPostDate(elem.unixMsec)}</Typography>
                   </Grid>
                   <Grid item xs={6} style={{textAlign: "center"}}>
-                    <Clipboard data-clipboard-text={elem.url} onSuccess={onSuccess}>
+                    <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess}>
                       <Button
                         color={"primary"}
                         variant={"contained"}
