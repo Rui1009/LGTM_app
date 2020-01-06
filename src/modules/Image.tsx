@@ -8,7 +8,7 @@ import {AxiosResponse} from "axios";
 
 
 const actionTypes = {
-    LOAD_DATA: "LOAD_DATA"
+    LOAD_DATA: "LOAD_DATA",
 }
 
 const actionCreator = actionCreatorFactory();
@@ -64,6 +64,28 @@ export const SetImageDataActionCreator = {
     loadImageData: actionCreator<void>(actionTypes.LOAD_DATA)
 }
 
+export const UseImageSliceReducer = createSlice({
+    name: "useImage",
+    initialState: 0,
+    reducers: {
+        useImage(state: number, action: {payload: number}) {
+            return state
+        }
+    }
+})
+
+function* putImageData(action: {type: string, payload: number}) {
+    try {
+        console.log(action.payload)
+        const result = (yield call(Api.put, `https://lgtm-app-server.herokuapp.com/images/${action.payload}/use`))
+        console.log(result)
+        yield put(SetImageDataActionCreator.loadImageData())
+    } catch (e) {
+        console.log("fetchData error")
+        console.log(e)
+    }
+}
+
 function* fetchImageData() {
     try {
         const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"]
@@ -104,4 +126,6 @@ function* postImage(action:{type:string,payload: {dataUrl: string}}) {
     }
 }
 
-export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData),takeLatest(PostImageSliceReducer.actions.postImage, postImage)]
+export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData),
+                        takeLatest(PostImageSliceReducer.actions.postImage, postImage),
+                        takeLatest(UseImageSliceReducer.actions.useImage, putImageData)]

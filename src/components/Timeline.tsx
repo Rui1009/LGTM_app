@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, SetImageDataActionCreator} from "../modules/Image";
+import {ImageDataType, SetImageDataActionCreator, UseImageSliceReducer} from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -47,7 +47,7 @@ const Timeline = () => {
                         color={"primary"}
                         variant={"contained"}
                         onClick={() => {
-                          Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{dispatch(SetImageDataActionCreator.loadImageData())})
+                            dispatch(UseImageSliceReducer.actions.useImage(elem.id))
                         }}
                       >使用する</Button>
                     </Clipboard>
