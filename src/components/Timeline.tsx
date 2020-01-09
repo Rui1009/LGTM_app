@@ -18,7 +18,7 @@ const Timeline = () => {
   }
   const perPage = 6
   const offset = useSelector((state: CombineState) => state.pagination)
-
+    console.log(offset)
   const onSuccess = () => (
     alert("successfully copied")
   )
@@ -37,7 +37,7 @@ const Timeline = () => {
       </Grid>
       <Grid container xs={12}>
         {
-          imageData.slice(0, perPage).map((elem: ImageDataType) => (
+          imageData.map((elem: ImageDataType) => (
               <Card style={{margin: 10, width: 400}}>
                 <Grid item container>
                   <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
@@ -64,7 +64,8 @@ const Timeline = () => {
           )
         }
       </Grid>
-        <Pagination style={{textAlign: "center"}} limit={perPage} offset={offset} total={imageData.length} onClick={(e, offset) => dispatch(PaginationSliceReducer.actions.handlePagination(offset))}/>
+        {/* サーバーからサーバー内のデータの個数を返してもらい、トータルに代入*/}
+        <Pagination style={{textAlign: "center"}} limit={perPage} offset={offset} total={100} onClick={(e, offset) => dispatch(PaginationSliceReducer.actions.handlePagination(offset))}/>
     </div>
   )
 }

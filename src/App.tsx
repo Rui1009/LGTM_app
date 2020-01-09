@@ -6,7 +6,7 @@ import './App.css';
 
 import {useDispatch, useSelector} from "react-redux";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Lanking from "./components/Ranking";
+import Ranking from "./components/Ranking";
 import Home from "./components/Home";
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import {LoadDataSliceReducer} from "./modules/Image";
@@ -31,7 +31,7 @@ const App = () => {
       <BrowserRouter>
           <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/lanking" component={Lanking} />
+              <Route exact path="/lanking" component={Ranking} />
           </Switch>
       </BrowserRouter>
     </div>

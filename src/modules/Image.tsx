@@ -97,7 +97,7 @@ function* putImageData(action: {type: string, payload: {id: number, offset: numb
 
 function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     try {
-        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"].slice(action.payload.offset, action.payload.offset + 10)
+        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"].slice(action.payload.offset, action.payload.offset + 6)
         console.log(result)
         yield put(ImageSliceReducer.actions.setImageData(result))
     } catch (e) {
