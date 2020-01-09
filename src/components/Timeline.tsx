@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
 import {ImageDataType, SetImageDataActionCreator, UseImageSliceReducer} from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import {Api} from "../Api/Api";
 import Clipboard from 'react-clipboard.js';
 import {Link} from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Pagination from "material-ui-flat-pagination";
+
 
 const Timeline = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
@@ -15,6 +16,12 @@ const Timeline = () => {
   const setPostDate = (props: number) => {
     return (new Date(props).toLocaleString())
   }
+  const perPage = 6
+  const [offset, setOffset] = useState(0)
+
+  const handleClickPagination = (offset: number) => (
+      setOffset(offset)
+  )
 
   const onSuccess = () => (
     alert("successfully copied")
@@ -34,7 +41,7 @@ const Timeline = () => {
       </Grid>
       <Grid container xs={12}>
         {
-          imageData.map((elem: ImageDataType) => (
+          imageData.slice(offset, offset + perPage).map((elem: ImageDataType) => (
               <Card style={{margin: 10, width: 400}}>
                 <Grid item container>
                   <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
@@ -55,13 +62,13 @@ const Timeline = () => {
                   <Grid item xs={12} style={{textAlign: "center"}}>
                     <img height={300} width={300} style={{objectFit: "contain"}} src={elem.url}/>
                   </Grid>
-
                 </Grid>
               </Card>
             )
           )
         }
       </Grid>
+        <Pagination style={{textAlign: "center"}} limit={perPage} offset={offset} total={imageData.length} onClick={(e, offset) => handleClickPagination(offset)}/>
     </div>
   )
 }
