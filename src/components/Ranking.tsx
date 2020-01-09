@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, SetImageDataActionCreator} from "../modules/Image";
+import {ImageDataType, LoadDataSliceReducer} from "../modules/Image";
 import {Card, Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Api} from "../Api/Api";
@@ -11,7 +11,7 @@ const Ranking = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(SetImageDataActionCreator.loadImageData())
+    dispatch(LoadDataSliceReducer.actions.loadData({offset: imageData.length}))
   })
   function RankCompare(a: ImageDataType, b: ImageDataType) {
     let comparison = 0
@@ -46,7 +46,7 @@ const Ranking = () => {
                     color={"primary"}
                     variant={"contained"}
                     onClick={() => {
-                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{ dispatch(SetImageDataActionCreator.loadImageData())})
+                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{LoadDataSliceReducer.actions.loadData({offset : imageData.length})})
                     }}
                   >使用する</Button>
                 </Clipboard>

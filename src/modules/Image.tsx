@@ -1,17 +1,9 @@
 import React from "react"
-import actionCreatorFactory from "typescript-fsa";
 import {Api} from "../Api/Api";
 import {call, takeLatest, put} from "@redux-saga/core/effects"
 import {createSlice} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
 
-
-
-const actionTypes = {
-    LOAD_DATA: "LOAD_DATA",
-}
-
-const actionCreator = actionCreatorFactory();
 
 export interface ImageDataType {
     id: number,
@@ -19,6 +11,16 @@ export interface ImageDataType {
     unixMsec: number,
     used: number
 }
+
+export const LoadDataSliceReducer = createSlice({
+    name: "loadData",
+    initialState: 0,
+    reducers: {
+        loadData(state: number, action: {payload: {offset: number}}) {
+            return state
+        }
+    }
+})
 
 const Istate: ImageDataType[] = []
 
@@ -48,7 +50,7 @@ export const PostImageSliceReducer = createSlice({
     name: "postImage",
     initialState: "",
     reducers: {
-        postImage(state: string, action: {payload: {dataUrl: string}}) {
+        postImage(state: string, action: {payload: {dataUrl: string, offset: number}}) {
             return state
         },
         successPostImage(state: string, action: {payload: string}) {
@@ -60,35 +62,42 @@ export const PostImageSliceReducer = createSlice({
     }
 })
 
-export const SetImageDataActionCreator = {
-    loadImageData: actionCreator<void>(actionTypes.LOAD_DATA)
-}
 
 export const UseImageSliceReducer = createSlice({
     name: "useImage",
     initialState: 0,
     reducers: {
-        useImage(state: number, action: {payload: number}) {
+        useImage(state: number, action: {payload: {id: number, offset: number}}) {
             return state
         }
     }
 })
 
-function* putImageData(action: {type: string, payload: number}) {
+export const PaginationSliceReducer = createSlice({
+    name: "pagination",
+    initialState: 0,
+    reducers: {
+        handlePagination(state: number, action: {payload: number}) {
+            return action.payload
+        }
+    }
+})
+
+function* putImageData(action: {type: string, payload: {id: number, offset: number}}) {
     try {
         console.log(action.payload)
-        const result = (yield call(Api.put, `https://lgtm-app-server.herokuapp.com/images/${action.payload}/use`))
+        const result = (yield call(Api.put, `https://lgtm-app-server.herokuapp.com/images/${action.payload.id}/use`))
         console.log(result)
-        yield put(SetImageDataActionCreator.loadImageData())
+        yield put(LoadDataSliceReducer.actions.loadData({offset: action.payload.offset}))
     } catch (e) {
         console.log("fetchData error")
         console.log(e)
     }
 }
 
-function* fetchImageData() {
+function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     try {
-        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"]
+        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images"))["data"].slice(action.payload.offset, action.payload.offset + 10)
         console.log(result)
         yield put(ImageSliceReducer.actions.setImageData(result))
     } catch (e) {
@@ -99,7 +108,7 @@ function* fetchImageData() {
 
 
 
-function* postImage(action:{type:string,payload: {dataUrl: string}}) {
+function* postImage(action:{type:string,payload: {dataUrl: string, offset: number}}) {
     try {
         console.log(action.payload)
         const result:AxiosResponse<any> = (yield call(Api.postMultiPart, "https://lgtm-app-server.herokuapp.com/images",action.payload.dataUrl))
@@ -110,7 +119,7 @@ function* postImage(action:{type:string,payload: {dataUrl: string}}) {
             alert("投稿しました")
             yield put(PostImageSliceReducer.actions.successPostImage("success"))
             yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(""))
-            yield put(SetImageDataActionCreator.loadImageData())
+            yield put(LoadDataSliceReducer.actions.loadData({offset: action.payload.offset}))
         }else{
             console.log("error")
             console.log(result.status)
@@ -126,6 +135,6 @@ function* postImage(action:{type:string,payload: {dataUrl: string}}) {
     }
 }
 
-export const ImageSaga = [takeLatest(actionTypes.LOAD_DATA, fetchImageData),
+export const ImageSaga = [takeLatest(LoadDataSliceReducer.actions.loadData, fetchImageData),
                         takeLatest(PostImageSliceReducer.actions.postImage, postImage),
                         takeLatest(UseImageSliceReducer.actions.useImage, putImageData)]
