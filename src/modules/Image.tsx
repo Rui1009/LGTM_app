@@ -107,7 +107,6 @@ function* fetchImageData(action: {type: string, payload: {offset: number}}) {
 }
 
 
-
 function* postImage(action:{type:string,payload: {dataUrl: string, offset: number}}) {
     try {
         console.log(action.payload)

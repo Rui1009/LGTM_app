@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, LoadDataSliceReducer} from "../modules/Image";
+import {ImageDataType, LoadDataSliceReducer, UseImageSliceReducer} from "../modules/Image";
 import {Card, Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import {Api} from "../Api/Api";
 import Clipboard from "react-clipboard.js";
 
 const Ranking = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
   const dispatch = useDispatch()
+  const offset = useSelector((state: CombineState) => state.pagination)
   useEffect(() => {
     dispatch(LoadDataSliceReducer.actions.loadData({offset: imageData.length}))
   })
@@ -46,7 +46,7 @@ const Ranking = () => {
                     color={"primary"}
                     variant={"contained"}
                     onClick={() => {
-                      Api.put(`https://lgtm-app-server.herokuapp.com/images/${elem.id}/use`).then(()=>{LoadDataSliceReducer.actions.loadData({offset : imageData.length})})
+                      dispatch(UseImageSliceReducer.actions.useImage({id: elem.id, offset: offset}))
                     }}
                   >使用する</Button>
                 </Clipboard>
