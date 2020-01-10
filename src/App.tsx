@@ -4,23 +4,20 @@ import 'tui-image-editor/dist/tui-image-editor.css';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import './App.css';
 
-import {connect} from "react-redux";
-import {Dispatch} from "redux";
-import {Action} from "typescript-fsa";
-import {SetImageDataActionCreator} from "./modules/Image";
-
+import {useDispatch, useSelector} from "react-redux";
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Lanking from "./components/Ranking";
+import Ranking from "./components/Ranking";
 import Home from "./components/Home";
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
+import {LoadDataSliceReducer} from "./modules/Image";
+import {CombineState} from "./modules/RootModule";
 
-interface Props {
-    loadData(): void
-}
 
-const App = (props: Props) => {
+const App = () => {
+    const dispatch = useDispatch()
+    const offset = useSelector((state: CombineState) => state.pagination)
     useEffect(() => {
-        props.loadData()
+        dispatch(LoadDataSliceReducer.actions.loadData({offset: offset}))
     })
   return (
     <div>
@@ -34,20 +31,13 @@ const App = (props: Props) => {
       <BrowserRouter>
           <Switch>
               <Route exact path="/" component={Home}/>
-              <Route exact path="/lanking" component={Lanking} />
+              <Route exact path="/lanking" component={Ranking} />
           </Switch>
       </BrowserRouter>
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<any>>) => ({
-    loadData: () => {dispatch(SetImageDataActionCreator.loadImageData())}
-})
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(App)
+export default App
 
 

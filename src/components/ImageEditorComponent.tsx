@@ -99,6 +99,7 @@ const ImageEditorComponent = (props: {}) => {
   const currentValue: string = useSelector((state: CombineState) => state.selectedImageUrl)
   console.log(currentValue)
   const dispatch = useDispatch()
+  const offset = useSelector((state: CombineState) => state.pagination)
   const editorRef = useRef<ImageEditor>(null);
   return (
     <Modal
@@ -118,7 +119,7 @@ const ImageEditorComponent = (props: {}) => {
           <Button
             style={{borderRadius:20,backgroundColor: "#fdba3b",fontWeight:"bold",border: "1px solid #fdba3b",color: "#fff",fontSize: 12}}
             onClick={() =>{
-              editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png")}));
+              editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png"), offset: offset}));
               dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(""))
             }}
           >

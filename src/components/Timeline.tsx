@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, SetImageDataActionCreator, UseImageSliceReducer} from "../modules/Image";
+import {ImageDataType, PaginationSliceReducer, UseImageSliceReducer} from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Clipboard from 'react-clipboard.js';
@@ -17,12 +17,8 @@ const Timeline = () => {
     return (new Date(props).toLocaleString())
   }
   const perPage = 6
-  const [offset, setOffset] = useState(0)
-
-  const handleClickPagination = (offset: number) => (
-      setOffset(offset)
-  )
-
+  const offset = useSelector((state: CombineState) => state.pagination)
+    console.log(offset)
   const onSuccess = () => (
     alert("successfully copied")
   )
@@ -41,7 +37,7 @@ const Timeline = () => {
       </Grid>
       <Grid container xs={12}>
         {
-          imageData.slice(offset, offset + perPage).map((elem: ImageDataType) => (
+          imageData.map((elem: ImageDataType) => (
               <Card style={{margin: 10, width: 400}}>
                 <Grid item container>
                   <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
@@ -54,7 +50,7 @@ const Timeline = () => {
                         color={"primary"}
                         variant={"contained"}
                         onClick={() => {
-                            dispatch(UseImageSliceReducer.actions.useImage(elem.id))
+                            dispatch(UseImageSliceReducer.actions.useImage({id: elem.id, offset: offset}))
                         }}
                       >使用する</Button>
                     </Clipboard>
@@ -68,7 +64,8 @@ const Timeline = () => {
           )
         }
       </Grid>
-        <Pagination style={{textAlign: "center"}} limit={perPage} offset={offset} total={imageData.length} onClick={(e, offset) => handleClickPagination(offset)}/>
+        {/* サーバーからサーバー内のデータの個数を返してもらい、トータルに代入*/}
+        <Pagination style={{textAlign: "center"}} limit={perPage} offset={offset} total={100} onClick={(e, offset) => dispatch(PaginationSliceReducer.actions.handlePagination(offset))}/>
     </div>
   )
 }
