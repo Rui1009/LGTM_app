@@ -9,8 +9,12 @@ export interface ImageDataType {
     id: number,
     url: string,
     unixMsec: number,
-    used: number
+    used: number,
+   // dataAmount: number fetchImageDataのとき、データの総数
 }
+
+
+
 
 export const LoadDataSliceReducer = createSlice({
     name: "loadData",
@@ -32,6 +36,17 @@ export const ImageSliceReducer = createSlice({
             return action.payload
         }
     }
+})
+
+export const RankingDataSliceReducer = createSlice({
+    name: "rankingData",
+    initialState: Istate,
+    reducers: {
+        setRankingData(state: ImageDataType[], action: {payload: ImageDataType[]}) {
+            return action.payload
+        }
+    }
+
 })
 
 export const SelectedImageUrlSliceReducer = createSlice({
@@ -106,6 +121,16 @@ function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     }
 }
 
+function* fetchRankingData() {
+    try {
+        const result = (yield call(Api.get, "https://lgtm-app-server.herokuapp.com/images?sort=ranking"))["data"]
+        console.log(result)
+    } catch (e) {
+        console.log("fetchRankingData error")
+        console.log(e)
+    }
+}
+
 
 function* postImage(action:{type:string,payload: {dataUrl: string, offset: number}}) {
     try {
@@ -136,4 +161,6 @@ function* postImage(action:{type:string,payload: {dataUrl: string, offset: numbe
 
 export const ImageSaga = [takeLatest(LoadDataSliceReducer.actions.loadData, fetchImageData),
                         takeLatest(PostImageSliceReducer.actions.postImage, postImage),
-                        takeLatest(UseImageSliceReducer.actions.useImage, putImageData)]
+                        takeLatest(UseImageSliceReducer.actions.useImage, putImageData),
+                        takeLatest(RankingDataSliceReducer.actions.setRankingData, fetchRankingData)
+]
