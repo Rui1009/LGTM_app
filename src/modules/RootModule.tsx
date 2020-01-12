@@ -2,7 +2,7 @@ import { reducer as formReducer } from "redux-form";
 import {combineReducers} from "redux";
 import { createBrowserHistory } from "history";
 import {
-    BasicImageDataType,
+    BasicImageDataType, DataAmountSliceReducer,
     ImageSliceReducer,
     PaginationSliceReducer,
     RankingDataSliceReducer,
@@ -16,7 +16,8 @@ export interface CombineState {
     selectedImageUrl: string,
     router: RouterState,
     pagination: number,
-    ranking: BasicImageDataType[]
+    ranking: BasicImageDataType[],
+    dataAmount: number
 }
 
 export const rootReducer = combineReducers<CombineState>({
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers<CombineState>({
     selectedImageUrl: SelectedImageUrlSliceReducer.reducer,
     router: connectRouter(createBrowserHistory()),
     pagination: PaginationSliceReducer.reducer,
-    ranking: RankingDataSliceReducer.reducer
+    ranking: RankingDataSliceReducer.reducer,
+    dataAmount: DataAmountSliceReducer.reducer
 })
 

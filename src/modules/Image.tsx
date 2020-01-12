@@ -30,6 +30,16 @@ export const LoadDataSliceReducer = createSlice({
     }
 })
 
+export const LoadRankingDataSliceReducer = createSlice({
+    name: "loadRankingData",
+    initialState: 0,
+    reducers: {
+        loadRankingData(state: number, action: {payload?: number}) {
+            return state
+        }
+    }
+})
+
 const Istate: BasicImageDataType[] = []
 
 export const ImageSliceReducer = createSlice({
@@ -102,6 +112,16 @@ export const PaginationSliceReducer = createSlice({
     }
 })
 
+export const DataAmountSliceReducer = createSlice({
+    name: "dataAmount",
+    initialState: 0,
+    reducers: {
+        handleDataAmount(state: number, action: {payload: number}) {
+            return action.payload
+        }
+    }
+})
+
 function* putImageData(action: {type: string, payload: {id: number, offset: number}}) {
     try {
         console.log(action.payload)
@@ -116,9 +136,12 @@ function* putImageData(action: {type: string, payload: {id: number, offset: numb
 
 function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     try {
-        const result = (yield call(Api.get, `${URL}/images`))["data"].slice(action.payload.offset, action.payload.offset + 6)
+        const result = (yield call(Api.get, `${URL}/images`))["data"][1].slice(action.payload.offset, action.payload.offset + 30)
+        const dataAmount = (yield call(Api.get, `${URL}/images`))["data"][0][1]
         console.log(result)
+        console.log(dataAmount)
         yield put(ImageSliceReducer.actions.setImageData(result))
+        yield put(DataAmountSliceReducer.actions.handleDataAmount(dataAmount))
     } catch (e) {
         console.log("fetchData error");
         console.log(e)
@@ -127,7 +150,7 @@ function* fetchImageData(action: {type: string, payload: {offset: number}}) {
 
 function* fetchRankingData() {
     try {
-        const result = (yield call(Api.get, `${URL}/images?sort=ranking`))["data"]
+        const result = (yield call(Api.get, `${URL}/images?sort=ranking`))["data"][1].slice(0, 30)
         console.log(result)
         yield put(RankingDataSliceReducer.actions.setRankingData(result))
     } catch (e) {
@@ -137,10 +160,10 @@ function* fetchRankingData() {
 }
 
 
-function* postImage(action:{type:string,payload: {dataUrl: string, offset: number}}) {
+function* postImage(action:{type:string,　payload: {dataUrl: string, offset: number}}) {
     try {
         console.log(action.payload)
-        const result:AxiosResponse<any> = (yield call(Api.postMultiPart, `${URL}/images`,action.payload.dataUrl))
+        const result:AxiosResponse<any> = (yield call(Api.postMultiPart, `${URL}/images`, action.payload.dataUrl))
         console.log(result)
 
         if(result.status<300){
@@ -167,5 +190,5 @@ function* postImage(action:{type:string,payload: {dataUrl: string, offset: numbe
 export const ImageSaga = [takeLatest(LoadDataSliceReducer.actions.loadData, fetchImageData),
                         takeLatest(PostImageSliceReducer.actions.postImage, postImage),
                         takeLatest(UseImageSliceReducer.actions.useImage, putImageData),
-                        takeLatest(RankingDataSliceReducer.actions.setRankingData, fetchRankingData)
+                        takeLatest(LoadRankingDataSliceReducer.actions.loadRankingData, fetchRankingData)
 ]
