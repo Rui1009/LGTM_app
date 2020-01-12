@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, LoadDataSliceReducer, UseImageSliceReducer} from "../modules/Image";
+import {BasicImageDataType, ImageDataType, LoadDataSliceReducer, UseImageSliceReducer} from "../modules/Image";
 import {Card, Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Clipboard from "react-clipboard.js";
@@ -13,7 +13,7 @@ const Ranking = () => {
   useEffect(() => {
     dispatch(LoadDataSliceReducer.actions.loadData({offset: imageData.length}))
   })
-  function RankCompare(a: ImageDataType, b: ImageDataType) {
+  function RankCompare(a: BasicImageDataType, b: BasicImageDataType) {
     let comparison = 0
     if (a.used < b.used) {
       comparison = 1
@@ -29,7 +29,7 @@ const Ranking = () => {
   return (
     <div style={{textAlign: "center"}}>
       {
-        RankingArray.map((elem: ImageDataType) => (
+        RankingArray.map((elem: BasicImageDataType) => (
           <Card style={{height:400}}>
             <Grid container direction={"column"}>
               <Grid item>

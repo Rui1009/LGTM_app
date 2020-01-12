@@ -1,7 +1,13 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
-import {ImageDataType, PaginationSliceReducer, UseImageSliceReducer} from "../modules/Image";
+import {
+    BasicImageDataType,
+    ImageDataType,
+    PaginationSliceReducer,
+    RankingDataSliceReducer,
+    UseImageSliceReducer
+} from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Clipboard from 'react-clipboard.js';
@@ -60,12 +66,12 @@ const Timeline = () => {
         <TabPanel index={0} value={value}>
             <Grid container xs={12}>
                 {
-                    imageData.map((elem: ImageDataType) => (
+                    imageData.map((elem: BasicImageDataType) => (
                             <Card style={{margin: 10, width: 400}}>
                                 <Grid item container>
                                     <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
                                         <Typography>使用された数: {elem.used}</Typography>
-                                        <Typography>{setPostDate(elem.unixMsec)}</Typography>
+                                        <Typography>{setPostDate(elem.unixMsec ? elem.unixMsec : 0)}</Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{textAlign: "center"}}>
                                         <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess}>
