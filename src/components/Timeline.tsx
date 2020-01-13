@@ -106,6 +106,7 @@ const Timeline = () => {
                             <Card style={{margin: 10, width: 400}}>
                                 <Grid item container>
                                     <Grid item container xs={6} direction={"column"} style={{textAlign: "center"}}>
+                                        <Typography>{rankingData.indexOf(elem) + 1}位</Typography>
                                         <Typography>使用された数: {elem.used}</Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{textAlign: "center"}}>
@@ -134,4 +135,3 @@ const Timeline = () => {
 }
 
 export default Timeline
-
