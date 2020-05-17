@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import {LoadDataSliceReducer} from "./modules/Image";
 import {CombineState} from "./modules/RootModule";
+import logo from "./assets/header_logo.png"
 
 
 const App = () => {
@@ -22,10 +23,8 @@ const App = () => {
   return (
     <div>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" >
-            LGTM Generator
-          </Typography>
+        <Toolbar style={{backgroundColor: "#fff", borderBottom: "3px solid black"}}>
+            <img src={logo} height={"80px"}/>
         </Toolbar>
       </AppBar>
       <BrowserRouter>

@@ -4,8 +4,8 @@ import {call, takeLatest, put} from "@redux-saga/core/effects"
 import {createSlice} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
 
-//const URL = "https://lgtm-app-server.herokuapp.com"
-const URL = "http://localhost:9000"
+const URL = "https://lgtm-app-server.herokuapp.com"
+//const URL = "http://localhost:9000"
 
 export interface BasicImageDataType {
     id: number,

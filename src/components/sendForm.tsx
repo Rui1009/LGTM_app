@@ -17,18 +17,12 @@ export const renderField = (
                 endAdornment: <InputAdornment position="end">{props.unit}</InputAdornment>
             }}
             {...props.input}
+            style={{width: "100%", margin: "10px"}}
         />
     );
 };
 
-const useStyles = makeStyles({
-    content: {
-        textAlign: "center",
-    }
-});
-
 const SendForm = (props: InjectedFormProps) => {
-    const classes = useStyles()
     return (
         <form onSubmit={props.handleSubmit}>
             <Grid container xs={12}>

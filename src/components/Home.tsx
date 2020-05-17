@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 const Home = () => {
   const currentValue = useParams()
-  console.log(currentValue)
     return (
         <div>
            <UrlForm/>

@@ -9,6 +9,8 @@ import iconB from 'tui-image-editor/dist/svg/icon-b.svg'
 import iconC from 'tui-image-editor/dist/svg/icon-c.svg'
 import iconD from 'tui-image-editor/dist/svg/icon-d.svg'
 import ImageEditor from "./ImageEditor";
+import exampleImage from "../assets/example.png"
+import badExampleImage from "../assets/bad_example.png"
 
 import {PostImageSliceReducer, SelectedImageUrlSliceReducer} from "../modules/Image";
 
@@ -117,6 +119,7 @@ const ImageEditorComponent = (props: {}) => {
           padding: 10}}>
         <div style={{padding:8,backgroundImage:"none",backgroundColor: "grey",border: "0px"}}>
           <Button
+              disabled={currentValue.slice(-4) === (".jpg" || ".png")}
             style={{borderRadius:20,backgroundColor: "#fdba3b",fontWeight:"bold",border: "1px solid #fdba3b",color: "#fff",fontSize: 12}}
             onClick={() =>{
               editorRef && editorRef.current && dispatch(PostImageSliceReducer.actions.postImage({dataUrl: editorRef.current.getInstance().toDataURL("png"), offset: offset}));
@@ -126,7 +129,7 @@ const ImageEditorComponent = (props: {}) => {
             投稿する
           </Button>
         </div>
-        {!!currentValue ?
+        {!!currentValue && currentValue.slice(-4) !== (".jpg" || ".png") ?
           //@ts-ignore
           <ImageEditor
             ref={editorRef}
@@ -152,7 +155,18 @@ const ImageEditorComponent = (props: {}) => {
               rotatingPointOffset: 70
             }}
             usageStatistics={false}
-          /> : null}
+          />
+          :
+            <div>
+              <p>jpgやpng形式は指定できません。</p>
+              <p>Google検索の場合、以下のような状態から使用したい画像を右クリックしてリンクをコピーしてください。</p>
+              <img src={exampleImage} style={{height: "290px", width: "600px"}}/>
+              <p>❌悪い例</p>
+              <p>以下の状態から選択中の画像のリンクをコピー。</p>
+              <img src={badExampleImage} style={{height: "205px", width: "600px"}}/>
+
+            </div>
+              }
 
       </div>
     </Modal>

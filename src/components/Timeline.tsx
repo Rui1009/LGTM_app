@@ -57,17 +57,16 @@ const Timeline = () => {
   return (
     <div>
         <AppBar position={"static"}>
-            <Tabs value={value} onChange={handleValueChange} centered={true}>
-                <Tab label={"Timeline"} {...allyProps(0)} />
-                <Tab label={"Ranking"} {...allyProps(1)} onClick={() => dispatch(LoadRankingDataSliceReducer.actions.loadRankingData())}/>
-            </Tabs>
+            <Grid xs={12} container style={{backgroundColor: "#C6C7BF"}}>
+                <Grid item xs={3}>
+                    <Tabs value={value} onChange={handleValueChange} centered={true} style={{backgroundColor: "#C6C7BF"}}>
+                        <Tab label={"Timeline"} {...allyProps(0)} />
+                        <Tab label={"Ranking"} {...allyProps(1)} onClick={() => dispatch(LoadRankingDataSliceReducer.actions.loadRankingData())}/>
+                    </Tabs>
+                </Grid>
+            </Grid>
         </AppBar>
         <TabPanel index={0} value={value}>
-            <Grid alignItems={"center"} justify={"space-between"} container style={{padding: 10}}>
-                <Typography variant="h4">
-                    Timeline
-                </Typography>
-            </Grid>
             <Grid container xs={12}>
                 {
                     imageData.map((elem: BasicImageDataType) => (
