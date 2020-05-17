@@ -39,6 +39,7 @@ const allyProps = (index: number) => (
 
 const Timeline = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
+    console.log(imageData)
   const rankingData = useSelector((state: CombineState) => state.ranking)
   const dispatch = useDispatch()
   const setPostDate = (props: number) => {

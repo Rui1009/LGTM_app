@@ -47,7 +47,7 @@ export const ImageSliceReducer = createSlice({
     initialState: Istate,
     reducers: {
         setImageData(state: BasicImageDataType[], action: {payload: BasicImageDataType[]}) {
-            return action.payload
+            return action.payload.filter(v => v.id >= 75 || v.id <= 67)
         }
     }
 })
@@ -57,7 +57,7 @@ export const RankingDataSliceReducer = createSlice({
     initialState: Istate,
     reducers: {
         setRankingData(state: BasicImageDataType[], action: {payload: BasicImageDataType[]}) {
-            return action.payload
+            return action.payload.filter(v => v.id >= 75 || v.id <= 67)
         }
     }
 
