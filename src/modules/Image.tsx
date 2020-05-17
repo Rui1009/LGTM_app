@@ -47,7 +47,7 @@ export const ImageSliceReducer = createSlice({
     initialState: Istate,
     reducers: {
         setImageData(state: BasicImageDataType[], action: {payload: BasicImageDataType[]}) {
-            return action.payload.filter(v => v.id >= 75 || v.id <= 67)
+            return action.payload
         }
     }
 })
@@ -57,7 +57,7 @@ export const RankingDataSliceReducer = createSlice({
     initialState: Istate,
     reducers: {
         setRankingData(state: BasicImageDataType[], action: {payload: BasicImageDataType[]}) {
-            return action.payload.filter(v => v.id >= 75 || v.id <= 67)
+            return action.payload
         }
     }
 
@@ -136,7 +136,7 @@ function* putImageData(action: {type: string, payload: {id: number, offset: numb
 
 function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     try {
-        const result = (yield call(Api.get, `${URL}/images`))["data"][1].slice(action.payload.offset, action.payload.offset + 30)
+        const result = (yield call(Api.get, `${URL}/images`))["data"][1].filter((v: any) => v.id >= 75 || v.id <= 67).slice(action.payload.offset, action.payload.offset + 30)
         const dataAmount = (yield call(Api.get, `${URL}/images`))["data"][0][1]
         console.log(result)
         console.log(dataAmount)

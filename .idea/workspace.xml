@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b1e1f3e-9524-4acb-b715-683ec39a1ca1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Timeline.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/Image.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Image.tsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,14 +22,14 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.57654434">
+    <splitter split-orientation="horizontal" split-proportion="0.49239033">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/UrlForm.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
+                <state relative-caret-position="255">
+                  <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -42,8 +40,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/modules/Image.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="310">
-                  <caret line="59" column="71" selection-start-line="59" selection-start-column="71" selection-end-line="59" selection-end-column="71" />
+                <state relative-caret-position="86">
+                  <caret line="63" column="1" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#25#0" expanded="true" />
                   </folding>
@@ -67,7 +65,7 @@
             <entry file="file://$PROJECT_DIR$/src/components/ImageEditor.tsx">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-256">
-                  <caret line="1" column="33" lean-forward="true" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+                  <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
                 </state>
               </provider>
             </entry>
@@ -140,11 +138,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/Timeline.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+                <state relative-caret-position="104">
+                  <caret line="53" column="65" selection-start-line="53" selection-start-column="65" selection-end-line="53" selection-end-column="65" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
                   </folding>
@@ -152,11 +150,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/modules/RootModule.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+                <state relative-caret-position="330">
+                  <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#52#0" expanded="true" />
                   </folding>
@@ -229,6 +227,7 @@
       <find>使用す</find>
       <find>TimeL</find>
       <find>inclu</find>
+      <find>handleData</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -267,9 +266,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="458" />
-    <option name="y" value="43" />
-    <option name="width" value="1440" />
+    <option name="x" value="314" />
+    <option name="y" value="37" />
+    <option name="width" value="1652" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectId" id="1VnXFLb3UmHnHqjXOMEraJEciId" />
@@ -400,18 +399,17 @@
       <workItem from="1580500519067" duration="124000" />
       <workItem from="1580525739733" duration="112000" />
       <workItem from="1589661350070" duration="8817000" />
-      <workItem from="1589684414231" duration="1626000" />
+      <workItem from="1589684414231" duration="2351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49763000" />
+    <option name="totallyTimeSpent" value="50488000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="314" y="37" width="1652" height="877" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19985673" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17350747" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -428,7 +426,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2253012" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23821656" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -586,16 +584,6 @@
     <entry file="file://$PROJECT_DIR$/src/assets/header_logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/UrlForm.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/sendForm.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -685,7 +673,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/ImageEditor.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-256">
-          <caret line="1" column="33" lean-forward="true" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -699,32 +687,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/modules/RootModule.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Timeline.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+        <state relative-caret-position="104">
+          <caret line="53" column="65" selection-start-line="53" selection-start-column="65" selection-end-line="53" selection-end-column="65" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/UrlForm.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/modules/Image.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="59" column="71" selection-start-line="59" selection-start-column="71" selection-end-line="59" selection-end-column="71" />
+        <state relative-caret-position="86">
+          <caret line="63" column="1" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modules/RootModule.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
