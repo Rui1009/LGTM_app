@@ -129,7 +129,7 @@ const ImageEditorComponent = (props: {}) => {
             投稿する
           </Button>
         </div>
-        {!!currentValue && currentValue.slice(-4) !== (".jpg" || ".png") ?
+        {!!currentValue && currentValue.slice(-4) !== ".png" && currentValue.slice(-4) !== ".jpg" ?
           //@ts-ignore
           <ImageEditor
             ref={editorRef}
@@ -159,7 +159,7 @@ const ImageEditorComponent = (props: {}) => {
           :
             <div>
               <p>jpgやpng形式は指定できません。</p>
-              <p>Google検索の場合、以下のような状態から使用したい画像を右クリックしてリンクをコピーしてください。</p>
+              <p>Google検索の場合、サムネイル状態の画像を右クリックして「画像アドレスをコピー」を押してください。</p>
               <img src={exampleImage} style={{height: "290px", width: "600px"}}/>
               <p>❌悪い例</p>
               <p>以下の状態から選択中の画像のリンクをコピー。</p>

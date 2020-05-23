@@ -14,8 +14,7 @@ const UrlForm = () => {
 
     return (
             <div style={{margin: "10px 0"}}>
-                <Typography style={{padding:3}}>以下に画像のurlを入れるとLGTMが入った画像が生成されるので、編集したら「投稿する」ボタンを押してください。</Typography>
-                <Typography style={{padding:3}}>jpgやpng形式は指定できません。</Typography>
+                <Typography style={{padding:3}}>使い方：Googleで画像検索し、好きな画像のサムネイルをクリックして「画像アドレスをコピー」を押して以下のフォームにペーストし作成を押してください。</Typography>
                 <Grid container xs={12}>
                     <Grid item xs={6}>
                         <SendForm onSubmit={() => {
