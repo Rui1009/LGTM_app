@@ -129,7 +129,7 @@ const ImageEditorComponent = (props: {}) => {
             投稿する
           </Button>
         </div>
-        {!!currentValue && currentValue.slice(-4) !== ".png" && currentValue.slice(-4) !== ".jpg" ?
+        {!!currentValue ?
           //@ts-ignore
           <ImageEditor
             ref={editorRef}
@@ -145,11 +145,14 @@ const ImageEditorComponent = (props: {}) => {
                 width: '600px',
                 height: '500px'
               },
+              // imageSize: {
+              //   width: "300px"
+              // },
               theme: theme,
               menuBarPosition: 'bottom'
             }}
-            cssMaxHeight={300}
-            cssMaxWidth={400}
+            // cssMaxHeight={400}
+            // cssMaxWidth={400}
             selectionStyle={{
               cornerSize: 10,
               rotatingPointOffset: 70

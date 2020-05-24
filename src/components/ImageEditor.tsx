@@ -6,7 +6,7 @@ export default class ImageEditor extends React.Component {
 
   addText =()=>{
     setTimeout(() =>{
-        try {
+        try {       
           // @ts-ignore
           const canvasSize = this.imageEditorInst.getCanvasSize();
           console.log(canvasSize.width);
@@ -47,14 +47,38 @@ export default class ImageEditor extends React.Component {
       ,200)
   }
 
+  addImage = () => {
+    
+    setTimeout(() => {
+      try {
+         const maxWidth = 400
+         const maxHeight = 300
+        //@ts-ignore
+        const originalSize = this.imageEditorInst._graphics.canvasImage.scale(1).getBoundingRect()
+        const multiScaleNum = originalSize.width> originalSize.height? maxWidth/originalSize.width : maxHeight / originalSize.height
+        //@ts-ignore 
+         this.imageEditorInst._graphics.setCanvasCssDimension({"max-width":"400px","max-height":"600px"})
+        //@ts-ignore
+        this.imageEditorInst.ui.resizeEditor({
+          uiSize: {width: "600px", height: "500px"},
+           imageSize: {newWidth: originalSize.width * multiScaleNum , newHeight: originalSize.height * multiScaleNum},
+          });
+      } catch (e) {
+        console.log(e)
+      }
+    }, 200)
+  }
+
   componentDidMount() {
     // @ts-ignore
     this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
       ...this.props
     });
     this.bindEventHandlers(this.props,undefined);
+    this.addImage()
     this.addText()
   }
+
 
   // @ts-ignore
   shouldComponentUpdate(nextProps) {
