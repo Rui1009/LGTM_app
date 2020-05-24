@@ -40,7 +40,7 @@ const Ranking = () => {
               </Grid>
               <Grid item>
                 <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={() => {
-                  alert("successfully copied")
+                  alert("クリップボードにコピーしました。")
                 }}>
                   <Button
                     color={"primary"}

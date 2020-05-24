@@ -7,7 +7,8 @@ import {
     PaginationSliceReducer,
     UseImageSliceReducer,
     fetchImages,
-    SelectedImageUrlSliceReducer
+    SelectedImageUrlSliceReducer,
+    sendImageLink
 } from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -60,7 +61,7 @@ const Timeline = () => {
   const offset = useSelector((state: CombineState) => state.pagination)
   const dataAmount = useSelector((state: CombineState) => state.dataAmount)
   const onSuccess = () => (
-    alert("successfully copied")
+    alert("クリップボードにコピーしました。")
   )
   return (
     <div>
@@ -145,7 +146,7 @@ const Timeline = () => {
             <Grid container xs={12}>
                 {searchedImagesData && searchedImagesData.map((image: any) => (
                     <Grid item xs={2}>
-                        <img src={image || "" } style={{width: "90%"}} onClick={() => dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(image))}/>
+                        <img src={image || "" } style={{width: "90%"}} onClick={() => dispatch(sendImageLink(image))}/>
                     </Grid>
                 ))}
             </Grid>
