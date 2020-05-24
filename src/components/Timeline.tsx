@@ -5,7 +5,8 @@ import {
     BasicImageDataType,
     LoadRankingDataSliceReducer,
     PaginationSliceReducer,
-    UseImageSliceReducer
+    UseImageSliceReducer,
+    fetchImages
 } from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +16,7 @@ import Pagination from "material-ui-flat-pagination";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SearchForm from "./SearchForm";
 
 
 interface Props {
@@ -39,8 +41,12 @@ const allyProps = (index: number) => (
 
 const Timeline = () => {
   const imageData = useSelector((state: CombineState) => state.imageData)
-    console.log(imageData)
   const rankingData = useSelector((state: CombineState) => state.ranking)
+  const searchedImagesRawData = useSelector((state: CombineState) => state.searchedImages)
+  const searchedImagesData = searchedImagesRawData.flatMap((data: any) => data)
+  console.log(searchedImagesData)
+
+
   const dispatch = useDispatch()
   const setPostDate = (props: number) => {
     return (new Date(props).toLocaleString())
@@ -59,10 +65,11 @@ const Timeline = () => {
     <div>
         <AppBar position={"static"}>
             <Grid xs={12} container style={{backgroundColor: "#C6C7BF"}}>
-                <Grid item xs={3}>
+                <Grid item xs={12}>
                     <Tabs value={value} onChange={handleValueChange} centered={true} style={{backgroundColor: "#C6C7BF"}}>
-                        <Tab label={"Timeline"} {...allyProps(0)} />
-                        <Tab label={"Ranking"} {...allyProps(1)} onClick={() => dispatch(LoadRankingDataSliceReducer.actions.loadRankingData())}/>
+                        <Tab label={"タイムライン"} {...allyProps(0)} />
+                        <Tab label={"人気の画像"} {...allyProps(1)} onClick={() => dispatch(LoadRankingDataSliceReducer.actions.loadRankingData())}/>
+                        <Tab label={"検索から作成"} {...allyProps(2)} />
                     </Tabs>
                 </Grid>
             </Grid>
@@ -128,6 +135,18 @@ const Timeline = () => {
                         )
                     )
                 }
+            </Grid>
+        </TabPanel>
+        <TabPanel index={2} value={value}>
+            <Grid>
+                <SearchForm onSubmit={(value: any) => dispatch(fetchImages(value.word))} />
+            </Grid>
+            <Grid container xs={12}>
+                {searchedImagesData && searchedImagesData.map((image: any) => (
+                    <Grid item xs={2}>
+                        <img src={image || "" } style={{width: "90%"}}/>
+                    </Grid>
+                ))}
             </Grid>
         </TabPanel>
     </div>
