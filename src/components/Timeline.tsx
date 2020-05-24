@@ -87,7 +87,7 @@ const Timeline = () => {
                                         <Typography>{setPostDate(elem.unixMsec ? elem.unixMsec : 0)}</Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{textAlign: "center"}}>
-                                        <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess}>
+                                        <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess} style={{borderColor: "transparent", backgroundColor:"transparent"}}>
                                             <Button
                                                 color={"primary"}
                                                 variant={"contained"}
@@ -119,7 +119,7 @@ const Timeline = () => {
                                         <Typography>使用された数: {elem.used}</Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{textAlign: "center"}}>
-                                        <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess}>
+                                        <Clipboard data-clipboard-text={`![](${elem.url})`} onSuccess={onSuccess} style={{borderColor: "transparent", backgroundColor:"transparent"}}>
                                             <Button
                                                 color={"primary"}
                                                 variant={"contained"}
