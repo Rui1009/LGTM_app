@@ -1,12 +1,16 @@
 import axios, {AxiosResponse} from "axios";
+import {store} from "../index"
+import { slice } from "../modules/Image";
 
 export class Api {
     static async get(url: string) {
-        return axios.get(url)
+        store.dispatch(slice.actions.start())
+        return axios.get(url).finally(() => store.dispatch(slice.actions.end()))
     }
     static async put(url: string) {
         return axios.put(url)
     }
+    
 
     static async postMultiPart(url:string,dataUri:string): Promise<AxiosResponse<any>> {
         return fetch(dataUri)
@@ -23,5 +27,10 @@ export class Api {
                 },
               )
           })
+    }
+
+    static async post(url: string, imageLink: string) {
+        store.dispatch(slice.actions.start())
+        return axios.post(url, {url: imageLink, headers: {'Content-Type' : "application/json"}}).finally(() => store.dispatch(slice.actions.end()))
     }
 }

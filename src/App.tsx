@@ -12,6 +12,7 @@ import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import {LoadDataSliceReducer} from "./modules/Image";
 import {CombineState} from "./modules/RootModule";
 import logo from "./assets/header_logo.png"
+import Loading from './components/Loading';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
     })
   return (
     <div>
+      <Loading />
       <AppBar position="static">
         <Toolbar style={{backgroundColor: "#fff", borderBottom: "3px solid black"}}>
             <img src={logo} height={"80px"}/>
