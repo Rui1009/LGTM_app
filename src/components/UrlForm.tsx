@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {CombineState} from "../modules/RootModule";
 import {getFormValues} from "redux-form";
 import SendForm from "./sendForm";
-import {SelectedImageUrlSliceReducer} from "../modules/Image";
+import {SelectedImageUrlSliceReducer, sendImageLink} from "../modules/Image";
 import Timeline from "./Timeline";
 import {Card, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -18,7 +18,7 @@ const UrlForm = () => {
                 <Grid container xs={12}>
                     <Grid item xs={6}>
                         <SendForm onSubmit={() => {
-                            dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(currentValue.url))
+                            dispatch(sendImageLink(currentValue.url))
                         }}/>
                     </Grid>
                 </Grid>

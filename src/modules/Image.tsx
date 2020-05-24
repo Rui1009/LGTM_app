@@ -133,6 +133,7 @@ export const SearchedImagesDataSliceReducer = createSlice({
 })
 
 export const fetchImages = createAction<string>("fetch_images")
+export const sendImageLink = createAction<string>("post_image_link")
 
 function* putImageData(action: {type: string, payload: {id: number, offset: number}}) {
     try {
@@ -199,7 +200,7 @@ function* searchImages(action: {type: string, payload: string}) {
         console.log(result)
         switch (result[0].status) {
             case 200:
-            yield put(SearchedImagesDataSliceReducer.actions.setSearchedImages(result.map((elem: any)=> elem.data.items.map((item: any)=> item.image.thumbnailLink))));
+            yield put(SearchedImagesDataSliceReducer.actions.setSearchedImages(result.map((elem: any)=> elem.data.items.map((item: any)=> item.link))));
             break;
             default:
             alert("エラー：画像の取得に失敗しました。")
@@ -210,9 +211,48 @@ function* searchImages(action: {type: string, payload: string}) {
     }
 }
 
+function* postImageLink(action: {type: string, payload: string}) {
+    try {
+        const base64Check = /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/
+        const result = yield call(Api.post, `${URL}/image`, action.payload)
+        switch (result.status) {
+            case 200:
+                yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(result.data.url))
+               break;
+               default:
+                   alert("エラー：予期せぬエラーが発生しました。")
+        }
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+const name = "loading";
+
+type State = {
+  isLoading: boolean;
+};
+
+const initialState: State = {
+  isLoading: false
+};
+
+export const slice = createSlice({
+  name,
+  initialState,
+  reducers: {
+    start: state => {
+      state.isLoading = true;
+    },
+    end: state => {
+      state.isLoading = false;
+    }
+  }
+});
+
 export const ImageSaga = [takeLatest(LoadDataSliceReducer.actions.loadData, fetchImageData),
                         takeLatest(PostImageSliceReducer.actions.postImage, postImage),
                         takeLatest(UseImageSliceReducer.actions.useImage, putImageData),
                         takeLatest(LoadRankingDataSliceReducer.actions.loadRankingData, fetchRankingData),
-                        takeLatest(fetchImages.toString(), searchImages)
+                        takeLatest(fetchImages.toString(), searchImages),
+                        takeLatest(sendImageLink.toString(), postImageLink)
 ]

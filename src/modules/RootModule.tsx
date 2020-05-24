@@ -7,7 +7,8 @@ import {
     PaginationSliceReducer,
     RankingDataSliceReducer,
     SelectedImageUrlSliceReducer,
-    SearchedImagesDataSliceReducer
+    SearchedImagesDataSliceReducer,
+    slice
 } from "./Image";
 import { connectRouter, RouterState } from "connected-react-router";
 
@@ -19,7 +20,8 @@ export interface CombineState {
     pagination: number,
     ranking: BasicImageDataType[],
     dataAmount: number,
-    searchedImages: any
+    searchedImages: any,
+    loading: {isLoading: boolean}
 }
 
 export const rootReducer = combineReducers<CombineState>({
@@ -30,6 +32,7 @@ export const rootReducer = combineReducers<CombineState>({
     pagination: PaginationSliceReducer.reducer,
     ranking: RankingDataSliceReducer.reducer,
     dataAmount: DataAmountSliceReducer.reducer,
-    searchedImages: SearchedImagesDataSliceReducer.reducer
+    searchedImages: SearchedImagesDataSliceReducer.reducer,
+    loading: slice.reducer
 })
 
