@@ -192,7 +192,7 @@ function* postImage(action:{type:string,　payload: {dataUrl: string, offset: nu
 function* searchImages(action: {type: string, payload: string}) {
     try {
         let result: any = []
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 1; i++) {
         result[i] = 
         yield call(Api.get, `https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyDQvSTqoDXb1vVVXNGbhlUq6-NGICbPGog&cx=004960726082045641169:buyjt0nlgxw&q=${action.payload}&searchType=image&start=${i * 10 + 1}`)
         }

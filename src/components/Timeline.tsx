@@ -6,7 +6,8 @@ import {
     LoadRankingDataSliceReducer,
     PaginationSliceReducer,
     UseImageSliceReducer,
-    fetchImages
+    fetchImages,
+    SelectedImageUrlSliceReducer
 } from "../modules/Image";
 import {Card, Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -144,7 +145,7 @@ const Timeline = () => {
             <Grid container xs={12}>
                 {searchedImagesData && searchedImagesData.map((image: any) => (
                     <Grid item xs={2}>
-                        <img src={image || "" } style={{width: "90%"}}/>
+                        <img src={image || "" } style={{width: "90%"}} onClick={() => dispatch(SelectedImageUrlSliceReducer.actions.setImageUrl(image))}/>
                     </Grid>
                 ))}
             </Grid>
