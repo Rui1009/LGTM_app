@@ -66,9 +66,9 @@ const Timeline = () => {
   return (
     <div>
         <AppBar position={"static"}>
-            <Grid xs={12} container style={{backgroundColor: "#C6C7BF"}}>
+            <Grid xs={12} container>
                 <Grid item xs={12}>
-                    <Tabs value={value} onChange={handleValueChange} centered={true} style={{backgroundColor: "#C6C7BF"}}>
+                    <Tabs value={value} onChange={handleValueChange} centered={true} style={{backgroundColor: "rgb(64, 64, 62)"}}>
                         <Tab label={"タイムライン"} {...allyProps(0)} />
                         <Tab label={"人気の画像"} {...allyProps(1)} onClick={() => dispatch(LoadRankingDataSliceReducer.actions.loadRankingData())}/>
                         <Tab label={"検索から作成"} {...allyProps(2)} />

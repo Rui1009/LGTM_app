@@ -212,19 +212,24 @@ function* searchImages(action: {type: string, payload: string}) {
 }
 
 function* postImageLink(action: {type: string, payload: string}) {
-    try {
-        const base64Check = /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$/
-        const result = yield call(Api.post, `${URL}/image`, action.payload)
-        switch (result.status) {
-            case 200:
-                yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(result.data.url))
-               break;
-               default:
-                   alert("エラー：予期せぬエラーが発生しました。")
-        }
-    } catch (e) {
-        console.log(e.message)
-    }
+
+        const base64Check = /^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i;
+        if(base64Check.test(action.payload)){
+            yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(action.payload))
+        }else{
+            try {
+                const result = yield call(Api.post, `${URL}/image`, action.payload)
+                switch (result.status) {
+                    case 200:
+                        yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(result.data.url))
+                    break;
+                    default:
+                        alert("エラー：予期せぬエラーが発生しました。")
+                }
+            } catch (e) {
+                console.log(e.message)
+            }
+        }       
 }
 const name = "loading";
 

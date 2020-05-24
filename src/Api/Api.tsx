@@ -16,6 +16,7 @@ export class Api {
         return fetch(dataUri)
           .then(res => res.blob())
           .then(blob => {
+            store.dispatch(slice.actions.start()) 
               const fd = new FormData()
               fd.append('image', blob, 'filename.png')
               return axios(
@@ -25,7 +26,7 @@ export class Api {
                     data: fd,
                     headers: {'Content-Type': 'multipart/form-data' }
                 },
-              )
+              ).finally(() => store.dispatch(slice.actions.end()))
           })
     }
 

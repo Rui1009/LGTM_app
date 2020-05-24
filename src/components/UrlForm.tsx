@@ -14,7 +14,12 @@ const UrlForm = () => {
 
     return (
             <div style={{margin: "10px 0"}}>
-                <Typography style={{padding:3}}>使い方：Googleで画像検索するか、下の「検索から作成」から検索し、好きな画像のサムネイルをクリックして「画像アドレスをコピー」を押して以下のフォームにペーストし作成を押してください。</Typography>
+                <Typography variant={"h6"} style={{padding:3}}>機能追加しました：</Typography>
+                <Typography style={{padding:3}}>・ワードをいれるとgoogle画像検索から作成できる機能を追加。</Typography>
+                <Typography style={{padding:3}}>・画像をリサイズする機能を追加</Typography>
+
+                <Typography variant={"h6"} style={{padding:3}}>使い方：</Typography>
+                <Typography style={{padding:3}}> Googleで画像検索して、好きな画像をクリックして「画像アドレスをコピー」を押して以下のフォームにペーストし作成を押すか、下の「検索から作成」から画像をクリックしてください。</Typography>
                 <Grid container xs={12}>
                     <Grid item xs={6}>
                         <SendForm onSubmit={() => {
