@@ -1,7 +1,7 @@
 import React from "react"
 import {Api} from "../Api/Api";
 import {call, takeLatest, put} from "@redux-saga/core/effects"
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, createAction} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
 
 const URL = "https://lgtm-app-server.herokuapp.com"
@@ -122,11 +122,21 @@ export const DataAmountSliceReducer = createSlice({
     }
 })
 
+export const SearchedImagesDataSliceReducer = createSlice({
+    name: "searchedImages",
+    initialState: [],
+    reducers: {
+        setSearchedImages(state: any, action: {payload: any}) {
+            return action.payload
+        }
+    }
+})
+
+export const fetchImages = createAction<string>("fetch_images")
+
 function* putImageData(action: {type: string, payload: {id: number, offset: number}}) {
     try {
-        console.log(action.payload)
         const result = (yield call(Api.put, `${URL}/images/${action.payload.id}/use`))
-        console.log(result)
         yield put(LoadDataSliceReducer.actions.loadData({offset: action.payload.offset}))
     } catch (e) {
         console.log("fetchData error")
@@ -138,8 +148,6 @@ function* fetchImageData(action: {type: string, payload: {offset: number}}) {
     try {
         const result = (yield call(Api.get, `${URL}/images`))["data"][1].filter((v: any) => v.id >= 75 || v.id <= 67).slice(action.payload.offset, action.payload.offset + 30)
         const dataAmount = (yield call(Api.get, `${URL}/images`))["data"][0][1]
-        console.log(result)
-        console.log(dataAmount)
         yield put(ImageSliceReducer.actions.setImageData(result))
         yield put(DataAmountSliceReducer.actions.handleDataAmount(dataAmount))
     } catch (e) {
@@ -151,23 +159,17 @@ function* fetchImageData(action: {type: string, payload: {offset: number}}) {
 function* fetchRankingData() {
     try {
         const result = (yield call(Api.get, `${URL}/images?sort=ranking`))["data"][1].slice(0, 30)
-        console.log(result)
         yield put(RankingDataSliceReducer.actions.setRankingData(result))
     } catch (e) {
         console.log("fetchRankingData error")
         console.log(e)
     }
 }
-
-
 function* postImage(action:{type:string,　payload: {dataUrl: string, offset: number}}) {
     try {
-        console.log(action.payload)
         const result:AxiosResponse<any> = (yield call(Api.postMultiPart, `${URL}/images`, action.payload.dataUrl))
-        console.log(result)
 
         if(result.status<300){
-            console.log(result)
             alert("投稿しました")
             yield put(PostImageSliceReducer.actions.successPostImage("success"))
             yield put(SelectedImageUrlSliceReducer.actions.setImageUrl(""))
@@ -187,8 +189,30 @@ function* postImage(action:{type:string,　payload: {dataUrl: string, offset: nu
     }
 }
 
+function* searchImages(action: {type: string, payload: string}) {
+    try {
+        let result: any = []
+        for (let i = 0; i < 3; i++) {
+        result[i] = 
+        yield call(Api.get, `https://customsearch.googleapis.com/customsearch/v1?key=AIzaSyDQvSTqoDXb1vVVXNGbhlUq6-NGICbPGog&cx=004960726082045641169:buyjt0nlgxw&q=${action.payload}&searchType=image&start=${i * 10 + 1}`)
+        }
+        console.log(result)
+        switch (result[0].status) {
+            case 200:
+            yield put(SearchedImagesDataSliceReducer.actions.setSearchedImages(result.map((elem: any)=> elem.data.items.map((item: any)=> item.image.thumbnailLink))));
+            break;
+            default:
+            alert("エラー：画像の取得に失敗しました。")
+        }
+
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 export const ImageSaga = [takeLatest(LoadDataSliceReducer.actions.loadData, fetchImageData),
                         takeLatest(PostImageSliceReducer.actions.postImage, postImage),
                         takeLatest(UseImageSliceReducer.actions.useImage, putImageData),
-                        takeLatest(LoadRankingDataSliceReducer.actions.loadRankingData, fetchRankingData)
+                        takeLatest(LoadRankingDataSliceReducer.actions.loadRankingData, fetchRankingData),
+                        takeLatest(fetchImages.toString(), searchImages)
 ]
